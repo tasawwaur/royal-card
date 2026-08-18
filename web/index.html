@@ -1182,6 +1182,7 @@
 
   </div>
 
+  <script src="player_database.js"></script>
   <script src="engine.js"></script>
   <script>
     // Initialize social databases if not present
@@ -2688,7 +2689,19 @@
       if (pokerActiveSeats[seatNum]) return; // already occupied
 
       // Pick a random bot from pool that isn't already sitting
-      let chosenBot = POKER_BOT_POOL[Math.floor(Math.random() * POKER_BOT_POOL.length)];
+      let sittingBotNames = [];
+      for (let s = 1; s <= 5; s++) {
+        if (s !== seatNum && pokerActiveSeats[s]) {
+          const seatContainer = document.getElementById('poker-seat-' + s);
+          if (seatContainer) {
+            const nameEl = seatContainer.querySelector('div:last-child span');
+            if (nameEl) sittingBotNames.push(nameEl.innerText);
+          }
+        }
+      }
+      let availableBots = GLOBAL_PLAYER_DATABASE.filter(b => !sittingBotNames.includes(b.name));
+      if (availableBots.length === 0) availableBots = GLOBAL_PLAYER_DATABASE;
+      let chosenBot = availableBots[Math.floor(Math.random() * availableBots.length)];
       
       pokerActiveSeats[seatNum] = true;
 
@@ -2939,8 +2952,70 @@
           updateUI();
           break;
         case 'leaderboard':
-          title = "Live Leaderboard";
-          desc = "Showing weekly rankings. #1 MaharajaAce (98.75 Cr), #2 GoldenAce (75.40 Cr), #3 BaharPro (52.30 Cr).";
+          title = "🏆 Ranked League Leaderboard";
+          let sortedPlayers = [...GLOBAL_PLAYER_DATABASE].sort((a, b) => b.level - a.level || b.wins - a.wins);
+          let listHtml = sortedPlayers.map((p, idx) => {
+            const rank = idx + 1;
+            let rankBadge = '';
+            let rowStyle = '';
+            if (rank === 1) {
+              rankBadge = '🥇';
+              rowStyle = 'background: rgba(255, 215, 0, 0.15); border: 1px solid rgba(255, 215, 0, 0.3);';
+            } else if (rank === 2) {
+              rankBadge = '🥈';
+              rowStyle = 'background: rgba(192, 192, 192, 0.1); border: 1px solid rgba(192, 192, 192, 0.2);';
+            } else if (rank === 3) {
+              rankBadge = '🥉';
+              rowStyle = 'background: rgba(205, 127, 50, 0.1); border: 1px solid rgba(205, 127, 50, 0.2);';
+            } else {
+              rankBadge = `<span style="font-size: 10px; color: #a1c0d4; font-weight: bold; width: 20px; display: inline-block; text-align: center;">#${rank}</span>`;
+              rowStyle = 'background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);';
+            }
+
+            return `
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; margin-bottom: 6px; border-radius: 8px; ${rowStyle}">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="width: 24px; display: flex; justify-content: center; align-items: center;">${rankBadge}</div>
+                  <!-- Avatar with frame -->
+                  <div style="width: 32px; height: 32px; position: relative;">
+                    <div class="avatar-frame ${p.frame}" style="width: 100%; height: 100%;">
+                      <div class="avatar-frame-border"></div>
+                      <div class="avatar-frame-image">
+                        <img src="${p.avatar}" style="width:100%; height:100%; object-fit:cover;">
+                      </div>
+                    </div>
+                    <!-- Level shield overlay -->
+                    <span style="position: absolute; left: 50%; bottom: -2px; transform: translateX(-50%); font-size: 6px; font-weight: 900; color: #fff; text-shadow: 0 1px 1px #000; font-family: 'Outfit', sans-serif; pointer-events: none; z-index: 10;">${p.level}</span>
+                  </div>
+                  <!-- Username and Flag -->
+                  <div style="display: flex; flex-direction: column; gap: 1px; margin-left: 2px;">
+                    <span style="font-weight: bold; font-size: 10px; color: #fff; font-family: 'Outfit', sans-serif;">${p.name} ${p.flag}</span>
+                    <span style="font-size: 7.5px; color: #FFD700; text-transform: uppercase; font-weight: bold;">${p.signature}</span>
+                  </div>
+                </div>
+                <!-- Earning / Wins -->
+                <div style="text-align: right; display: flex; flex-direction: column; gap: 1.5px;">
+                  <span style="font-size: 10px; font-weight: 800; color: #00FF66; font-family: 'Outfit', sans-serif;">🪙 ${(p.coins / 1000).toFixed(0)}K</span>
+                  <span style="font-size: 7.5px; color: rgba(255,255,255,0.4); font-weight: bold;">🏆 ${p.wins} Wins</span>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          desc = `
+            <div style="display: flex; flex-direction: column; height: 290px; text-align: left; font-family: 'Outfit', sans-serif;">
+              <!-- Header tabs -->
+              <div style="display: flex; gap: 6px; margin-bottom: 10px;">
+                <button style="flex: 1; padding: 4px; border: 1px solid #FFD700; background: linear-gradient(180deg, #D4AF37, #AA7C11); color: #000; font-size: 10px; font-weight: bold; border-radius: 6px; cursor: pointer;">Global League</button>
+                <button style="flex: 1; padding: 4px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff; font-size: 10px; font-weight: bold; border-radius: 6px; cursor: pointer;" onclick="alert('Join a club to unlock Friends Leaderboard!')">Friends League</button>
+              </div>
+              <!-- Scrollable rankings list -->
+              <div class="scrollbar-custom" style="flex: 1; overflow-y: auto; padding-right: 2px;">
+                \${listHtml}
+              </div>
+            </div>
+          `;
+          openModal(title, desc);
           break;
         case 'voice':
           title = "Voice Room Lobby";
