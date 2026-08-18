@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1111,235 +1111,275 @@
     </div>
 
     <!-- ─── TEEN PATTI GAME FULL SCREEN ─── -->
-    <div id="screen-poker" class="screen" style="background:url('assets/tp_table_bg.jpg') no-repeat center center;background-size:100% 100%;width:100%;height:100%;position:relative;overflow:hidden;font-family:'Outfit',sans-serif;">
+    <div id="screen-poker" class="screen" style="width:100%;height:100%;position:relative;overflow:hidden;font-family:'Outfit',sans-serif;">
+
+      <!-- TABLE BACKGROUND fills full screen -->
+      <img src="assets/tp_table_bg.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+
       <style>
         @keyframes tpglow{0%,100%{box-shadow:0 0 8px #FFD700,0 0 20px rgba(255,215,0,0.4)}50%{box-shadow:0 0 18px #fff,0 0 35px rgba(255,215,0,0.7)}}
-        .tp-seat.active-turn .tp-avatar{animation:tpglow 1.2s infinite}
-        @keyframes tpcard{from{transform:translateY(-30px) scale(0.8);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
-        .tp-card-deal{animation:tpcard 0.4s ease forwards}
-        .tpbtn:active{transform:scale(0.91);transition:transform 0.08s}
-        .tp-avatar{border-radius:50%;border:3px solid #FFD700;box-shadow:0 0 12px rgba(255,215,0,0.5);object-fit:cover;}
-        .tp-name-panel{background:linear-gradient(135deg,rgba(10,5,25,0.92),rgba(30,15,50,0.88));border:1px solid rgba(255,215,0,0.55);border-radius:8px;padding:3px 9px;text-align:center;}
-        .tp-vip{background:linear-gradient(90deg,#9D6A00,#FFD700,#9D6A00);color:#000;font-size:7px;font-weight:900;border-radius:10px;padding:1px 6px;display:inline-block;margin-top:1px;}
-        .tp-card{width:38px;height:54px;background:linear-gradient(135deg,#0d0830,#1a0d50);border:2px solid #C9A227;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.7),inset 0 0 8px rgba(255,215,0,0.1);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-        .tp-card::before{content:'';position:absolute;inset:3px;border:1px solid rgba(201,162,39,0.4);border-radius:3px;}
-        .tp-card-r{font-size:18px;font-weight:900;color:#C9A227;text-shadow:0 0 8px rgba(201,162,39,0.8);z-index:1;}
-        .tp-card-sm{width:24px;height:34px;border-width:1.5px;border-radius:4px;}
-        .tp-card-sm .tp-card-r{font-size:11px;}
+        .tp-seat.active-turn .tp-av{animation:tpglow 1.2s infinite}
+        .tpbtn:active{transform:scale(0.91)}
+        .tp-av{width:58px;height:58px;border-radius:50%;border:3px solid #C9A227;object-fit:cover;box-shadow:0 0 12px rgba(201,162,39,0.6);}
+        .tp-av-sm{width:46px;height:46px;}
+        .tp-panel{background:linear-gradient(135deg,rgba(8,3,20,0.92),rgba(25,10,50,0.88));border:1.5px solid rgba(201,162,39,0.6);border-radius:10px;padding:4px 10px;text-align:center;}
+        .tp-vip{background:linear-gradient(90deg,#7B4F00,#FFD700,#7B4F00);color:#000;font-size:7px;font-weight:900;border-radius:8px;padding:1px 7px;display:inline-block;}
+        .tp-chip-icon{width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFE066,#C9A227,#7B4F00);border:1.5px solid #FFD700;display:inline-block;flex-shrink:0;}
+        .tp-card{width:36px;height:52px;border-radius:5px;background:linear-gradient(160deg,#0d0830,#1a0d50);border:2px solid #C9A227;box-shadow:0 4px 10px rgba(0,0,0,0.7);display:inline-flex;align-items:center;justify-content:center;position:relative;}
+        .tp-card::before{content:'♛';color:#C9A227;font-size:16px;font-weight:900;text-shadow:0 0 6px rgba(201,162,39,0.8);}
+        .tp-card::after{content:'';position:absolute;inset:3px;border:1px solid rgba(201,162,39,0.35);border-radius:3px;}
+        .tp-card-lg{width:46px;height:66px;}
+        .tp-card-lg::before{font-size:22px;}
+        .tp-card-sm{width:26px;height:37px;}
+        .tp-card-sm::before{font-size:11px;}
+        @keyframes deal{from{transform:translateY(-20px) scale(0.85);opacity:0}to{transform:none;opacity:1}}
+        .tp-card-deal{animation:deal 0.35s ease forwards;}
       </style>
 
-      <!-- ══ TOP HEADER ══ -->
-      <div style="position:absolute;top:0;left:0;width:100%;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:5px 10px;background:linear-gradient(180deg,rgba(5,2,15,0.96),transparent);">
-        <!-- Left: Profile -->
-        <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
-          <div style="width:30px;height:30px;background:rgba(255,215,0,0.12);border:1.5px solid #FFD700;border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#FFD700;font-size:14px;font-weight:900;" onclick="pokerExitToLobby()">◀</div>
-          <div style="display:flex;align-items:center;gap:6px;background:rgba(5,2,15,0.85);border:1px solid rgba(255,215,0,0.35);border-radius:22px;padding:3px 10px 3px 4px;">
-            <div style="width:34px;height:34px;background:linear-gradient(135deg,#7B4F00,#FFD700);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#000;border:2px solid #FFD700;">R</div>
-            <div style="line-height:1.2;">
-              <div id="tp-header-name" style="font-size:9px;font-weight:700;color:#fff;">Tasavvur</div>
+      <!-- ══════════════ TOP HEADER ══════════════ -->
+      <div style="position:absolute;top:0;left:0;width:100%;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:linear-gradient(180deg,rgba(4,1,12,0.97) 70%,transparent);height:64px;">
+
+        <!-- LEFT: Back + Profile -->
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+          <div onclick="pokerExitToLobby()" style="width:34px;height:34px;border-radius:8px;background:rgba(255,215,0,0.1);border:2px solid #C9A227;display:flex;align-items:center;justify-content:center;font-size:16px;color:#C9A227;cursor:pointer;font-weight:900;">◀</div>
+          <div style="display:flex;align-items:center;gap:7px;background:rgba(4,1,12,0.85);border:1.5px solid rgba(201,162,39,0.45);border-radius:24px;padding:4px 12px 4px 5px;">
+            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#7B4F00,#FFD700);border:2px solid #FFD700;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#000;flex-shrink:0;">R</div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.2;">Tasavvur</div>
               <div style="display:flex;align-items:center;gap:4px;">
-                <span style="background:linear-gradient(90deg,#9D6A00,#FFD700);color:#000;font-size:7px;font-weight:900;border-radius:8px;padding:1px 5px;">👑 VIP 5</span>
-                <span style="font-size:6.5px;color:rgba(255,255,255,0.4);">ID: RC108</span>
+                <span class="tp-vip">👑 VIP 5</span>
+                <span style="font-size:6.5px;color:rgba(255,255,255,0.35);">ID: RC108</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Center: Chips + Gems -->
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div style="display:flex;align-items:center;gap:4px;background:rgba(5,2,15,0.85);border:1px solid rgba(255,215,0,0.4);border-radius:14px;padding:3px 10px;height:28px;">
-            <img src="assets/images/icons/luxury_token_red.png" style="width:14px;height:14px;object-fit:contain;">
-            <span id="tp-chips" style="font-size:11px;font-weight:900;color:#FFD700;">82K</span>
-            <span style="color:#00FF66;font-size:13px;font-weight:900;cursor:pointer;margin-left:2px;">+</span>
+        <!-- CENTER: Chips + Gems -->
+        <div style="display:flex;align-items:center;gap:8px;">
+          <!-- CHIPS — gold chip circle icon + amount + plus -->
+          <div style="display:flex;align-items:center;gap:5px;background:rgba(4,1,12,0.85);border:1.5px solid rgba(201,162,39,0.5);border-radius:16px;padding:4px 12px;height:34px;">
+            <div class="tp-chip-icon"></div>
+            <span id="tp-chips" style="font-size:12px;font-weight:900;color:#FFD700;">82K</span>
+            <span style="color:#00E87A;font-size:16px;font-weight:900;cursor:pointer;margin-left:1px;">+</span>
           </div>
-          <div style="display:flex;align-items:center;gap:4px;background:rgba(5,2,15,0.85);border:1px solid #00E5FF;border-radius:14px;padding:3px 10px;height:28px;">
-            <span style="font-size:13px;">💎</span>
-            <span id="tp-gems" style="font-size:11px;font-weight:900;color:#00E5FF;">600</span>
-            <span style="color:#00E5FF;font-size:13px;font-weight:900;cursor:pointer;margin-left:2px;">+</span>
+          <!-- GEMS — blue diamond -->
+          <div style="display:flex;align-items:center;gap:5px;background:rgba(4,1,12,0.85);border:1.5px solid rgba(0,180,255,0.5);border-radius:16px;padding:4px 12px;height:34px;">
+            <span style="font-size:16px;line-height:1;">💎</span>
+            <span id="tp-gems" style="font-size:12px;font-weight:900;color:#00E5FF;">600</span>
+            <span style="color:#00E5FF;font-size:16px;font-weight:900;cursor:pointer;margin-left:1px;">+</span>
           </div>
         </div>
 
-        <!-- Right: Menu icons -->
-        <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
-          <div style="position:relative;text-align:center;cursor:pointer;" onclick="clickGridAction('bonus')">
-            <div style="font-size:20px;">🎁</div><div style="font-size:6.5px;color:#FFD700;font-weight:700;">Bonus</div>
-            <div style="position:absolute;top:-2px;right:-2px;background:#FF3333;color:#fff;font-size:7px;font-weight:900;border-radius:50%;width:12px;height:12px;display:flex;align-items:center;justify-content:center;">1</div>
+        <!-- RIGHT: Menu icons -->
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+          <div style="text-align:center;cursor:pointer;position:relative;" onclick="clickGridAction && clickGridAction('bonus')">
+            <div style="font-size:22px;">🎁</div><div style="font-size:7px;color:#FFD700;font-weight:700;">Bonus</div>
+            <div style="position:absolute;top:-2px;right:-3px;background:#FF2222;color:#fff;font-size:8px;font-weight:900;border-radius:50%;width:13px;height:13px;display:flex;align-items:center;justify-content:center;">1</div>
           </div>
-          <div style="position:relative;text-align:center;cursor:pointer;" onclick="clickGridAction('lucky')">
-            <div style="font-size:20px;">🎡</div><div style="font-size:6.5px;color:#FFD700;font-weight:700;">Lucky</div>
-            <div style="position:absolute;top:-2px;right:-2px;background:#FF3333;color:#fff;font-size:7px;font-weight:900;border-radius:50%;width:12px;height:12px;display:flex;align-items:center;justify-content:center;">1</div>
+          <div style="text-align:center;cursor:pointer;position:relative;" onclick="clickGridAction && clickGridAction('lucky')">
+            <div style="font-size:22px;">🎡</div><div style="font-size:7px;color:#FFD700;font-weight:700;">Lucky Spin</div>
+            <div style="position:absolute;top:-2px;right:-3px;background:#FF2222;color:#fff;font-size:8px;font-weight:900;border-radius:50%;width:13px;height:13px;display:flex;align-items:center;justify-content:center;">1</div>
           </div>
-          <div style="text-align:center;cursor:pointer;" onclick="clickGridAction('leaderboard')">
-            <div style="font-size:20px;">🏆</div><div style="font-size:6.5px;color:#FFD700;font-weight:700;">Rank</div>
+          <div style="text-align:center;cursor:pointer;" onclick="clickGridAction && clickGridAction('leaderboard')">
+            <div style="font-size:22px;">🏆</div><div style="font-size:7px;color:#FFD700;font-weight:700;">Rank</div>
           </div>
           <div style="text-align:center;cursor:pointer;">
-            <div style="font-size:20px;">✉️</div><div style="font-size:6.5px;color:#FFD700;font-weight:700;">Inbox</div>
+            <div style="font-size:22px;">✉️</div><div style="font-size:7px;color:#FFD700;font-weight:700;">Inbox</div>
           </div>
           <div style="text-align:center;cursor:pointer;">
-            <div style="font-size:20px;">⚙️</div><div style="font-size:6.5px;color:#FFD700;font-weight:700;">Settings</div>
+            <div style="font-size:22px;">⚙️</div><div style="font-size:7px;color:#FFD700;font-weight:700;">Settings</div>
           </div>
         </div>
       </div>
 
-      <!-- ══ DEALER LADY — TOP CENTER ══ -->
-      <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:50;pointer-events:none;">
-        <img src="assets/tp_dealer_lady.jpg" style="height:130px;object-fit:cover;border-radius:50% 50% 0 0;mask-image:linear-gradient(180deg,#000 60%,transparent 100%);-webkit-mask-image:linear-gradient(180deg,#000 60%,transparent 100%);">
+      <!-- ══════════════ DEALER LADY ══════════════ -->
+      <!-- top-center, 10% from top, masked bottom -->
+      <div style="position:absolute;left:50%;top:8%;transform:translateX(-50%);z-index:50;pointer-events:none;text-align:center;">
+        <img src="assets/tp_dealer_lady.jpg"
+             style="height:150px;width:120px;object-fit:cover;object-position:top;
+                    border-radius:60px 60px 0 0;
+                    -webkit-mask-image:linear-gradient(180deg,black 55%,transparent 100%);
+                    mask-image:linear-gradient(180deg,black 55%,transparent 100%);
+                    filter:drop-shadow(0 8px 18px rgba(0,0,0,0.8));">
       </div>
 
-      <!-- ══ POT BOX — CENTER ══ -->
-      <div id="tp-pot-hud" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:100;background:linear-gradient(135deg,rgba(10,5,25,0.95),rgba(40,20,70,0.92));border:2px solid #C9A227;border-radius:12px;padding:5px 20px;text-align:center;box-shadow:0 0 20px rgba(201,162,39,0.4),inset 0 0 12px rgba(0,0,0,0.5);">
-        <div style="font-size:8px;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:1px;font-weight:700;">POT</div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-top:2px;">
-          <img src="assets/images/icons/luxury_token_red.png" style="width:12px;height:12px;object-fit:contain;">
-          <span id="tp-pot-value" style="font-size:14px;font-weight:900;color:#FFD700;">0</span>
+      <!-- ══════════════ POT BOX — TABLE CENTER ══════════════ -->
+      <div id="tp-pot-hud" style="position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);z-index:100;">
+        <div style="background:linear-gradient(135deg,rgba(8,3,20,0.96),rgba(35,15,70,0.92));border:2px solid #C9A227;border-radius:10px;padding:5px 22px;text-align:center;box-shadow:0 0 18px rgba(201,162,39,0.4);">
+          <div style="font-size:8px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;">POT</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-top:2px;">
+            <div class="tp-chip-icon"></div>
+            <span id="tp-pot-value" style="font-size:15px;font-weight:900;color:#FFD700;min-width:30px;text-align:center;">0</span>
+          </div>
         </div>
       </div>
 
-      <!-- ══ SEAT 3 — TOP LEFT (Aarav) ══ -->
-      <div id="tp-seat-3" class="tp-seat empty" style="position:absolute;left:6%;top:17%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(3)">
+      <!-- ══════════════ SEAT 3 — TOP LEFT (Aarav) ══════════════ -->
+      <!-- ref: ~23% from left, ~22% from top -->
+      <div id="tp-seat-3" class="tp-seat empty" style="position:absolute;left:18%;top:19%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(3)">
         <div id="tp-join-3" style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-          <div style="width:52px;height:52px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
-          <div style="font-size:8px;color:rgba(255,255,255,0.3);font-weight:600;">Join</div>
+          <div style="width:48px;height:48px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.3);">Join</div>
         </div>
         <div id="tp-player-3" style="display:none;flex-direction:column;align-items:center;gap:3px;">
-          <img id="tp-av-3" src="" class="tp-avatar" style="width:52px;height:52px;">
-          <div class="tp-name-panel">
+          <img id="tp-av-3" src="" class="tp-av tp-av-sm">
+          <div class="tp-panel">
             <div id="tp-name-3" style="font-size:9px;font-weight:700;color:#fff;white-space:nowrap;"></div>
             <div id="tp-vip-3" class="tp-vip"></div>
-            <div id="tp-chips-3" style="font-size:8px;color:#FFD700;font-weight:700;margin-top:1px;"></div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:3px;margin-top:2px;">
+              <div class="tp-chip-icon" style="width:10px;height:10px;"></div>
+              <span id="tp-chips-3" style="font-size:8px;color:#FFD700;font-weight:700;"></span>
+            </div>
           </div>
           <div id="tp-cards-3" style="display:flex;gap:2px;margin-top:2px;"></div>
         </div>
-        <div id="tp-action-3" style="display:none;background:rgba(5,2,15,0.9);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
+        <div id="tp-action-3" style="display:none;background:rgba(5,1,15,0.93);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
       </div>
 
-      <!-- ══ SEAT 4 — TOP RIGHT (Priya) ══ -->
-      <div id="tp-seat-4" class="tp-seat empty" style="position:absolute;right:6%;top:17%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(4)">
+      <!-- ══════════════ SEAT 4 — TOP RIGHT (Priya) ══════════════ -->
+      <!-- ref: ~75% from left, ~22% from top -->
+      <div id="tp-seat-4" class="tp-seat empty" style="position:absolute;right:18%;top:19%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(4)">
         <div id="tp-join-4" style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-          <div style="width:52px;height:52px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
-          <div style="font-size:8px;color:rgba(255,255,255,0.3);font-weight:600;">Join</div>
+          <div style="width:48px;height:48px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.3);">Join</div>
         </div>
         <div id="tp-player-4" style="display:none;flex-direction:column;align-items:center;gap:3px;">
-          <img id="tp-av-4" src="" class="tp-avatar" style="width:52px;height:52px;">
-          <div class="tp-name-panel">
+          <img id="tp-av-4" src="" class="tp-av tp-av-sm">
+          <div class="tp-panel">
             <div id="tp-name-4" style="font-size:9px;font-weight:700;color:#fff;white-space:nowrap;"></div>
             <div id="tp-vip-4" class="tp-vip"></div>
-            <div id="tp-chips-4" style="font-size:8px;color:#FFD700;font-weight:700;margin-top:1px;"></div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:3px;margin-top:2px;">
+              <div class="tp-chip-icon" style="width:10px;height:10px;"></div>
+              <span id="tp-chips-4" style="font-size:8px;color:#FFD700;font-weight:700;"></span>
+            </div>
           </div>
           <div id="tp-cards-4" style="display:flex;gap:2px;margin-top:2px;"></div>
         </div>
-        <div id="tp-action-4" style="display:none;background:rgba(5,2,15,0.9);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
+        <div id="tp-action-4" style="display:none;background:rgba(5,1,15,0.93);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
       </div>
 
-      <!-- ══ SEAT 2 — MID LEFT (Rahul) ══ -->
-      <div id="tp-seat-2" class="tp-seat empty" style="position:absolute;left:2%;top:40%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(2)">
+      <!-- ══════════════ SEAT 2 — MID LEFT (Rahul) ══════════════ -->
+      <!-- ref: ~5% from left, ~40% from top -->
+      <div id="tp-seat-2" class="tp-seat empty" style="position:absolute;left:2%;top:38%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(2)">
         <div id="tp-join-2" style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-          <div style="width:52px;height:52px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
-          <div style="font-size:8px;color:rgba(255,255,255,0.3);font-weight:600;">Join</div>
+          <div style="width:48px;height:48px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.3);">Join</div>
         </div>
         <div id="tp-player-2" style="display:none;flex-direction:column;align-items:center;gap:3px;">
-          <img id="tp-av-2" src="" class="tp-avatar" style="width:52px;height:52px;">
-          <div class="tp-name-panel">
+          <img id="tp-av-2" src="" class="tp-av tp-av-sm">
+          <div class="tp-panel">
             <div id="tp-name-2" style="font-size:9px;font-weight:700;color:#fff;white-space:nowrap;"></div>
             <div id="tp-vip-2" class="tp-vip"></div>
-            <div id="tp-chips-2" style="font-size:8px;color:#FFD700;font-weight:700;margin-top:1px;"></div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:3px;margin-top:2px;">
+              <div class="tp-chip-icon" style="width:10px;height:10px;"></div>
+              <span id="tp-chips-2" style="font-size:8px;color:#FFD700;font-weight:700;"></span>
+            </div>
           </div>
           <div id="tp-cards-2" style="display:flex;gap:2px;margin-top:2px;"></div>
         </div>
-        <div id="tp-action-2" style="display:none;background:rgba(5,2,15,0.9);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
+        <div id="tp-action-2" style="display:none;background:rgba(5,1,15,0.93);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
       </div>
 
-      <!-- ══ SEAT 5 — MID RIGHT (Vikram) ══ -->
-      <div id="tp-seat-5" class="tp-seat empty" style="position:absolute;right:2%;top:40%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(5)">
+      <!-- ══════════════ SEAT 5 — MID RIGHT (Vikram) ══════════════ -->
+      <!-- ref: ~85% from left, ~40% from top -->
+      <div id="tp-seat-5" class="tp-seat empty" style="position:absolute;right:2%;top:38%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(5)">
         <div id="tp-join-5" style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-          <div style="width:52px;height:52px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
-          <div style="font-size:8px;color:rgba(255,255,255,0.3);font-weight:600;">Join</div>
+          <div style="width:48px;height:48px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.3);">Join</div>
         </div>
         <div id="tp-player-5" style="display:none;flex-direction:column;align-items:center;gap:3px;">
-          <img id="tp-av-5" src="" class="tp-avatar" style="width:52px;height:52px;">
-          <div class="tp-name-panel">
+          <img id="tp-av-5" src="" class="tp-av tp-av-sm">
+          <div class="tp-panel">
             <div id="tp-name-5" style="font-size:9px;font-weight:700;color:#fff;white-space:nowrap;"></div>
             <div id="tp-vip-5" class="tp-vip"></div>
-            <div id="tp-chips-5" style="font-size:8px;color:#FFD700;font-weight:700;margin-top:1px;"></div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:3px;margin-top:2px;">
+              <div class="tp-chip-icon" style="width:10px;height:10px;"></div>
+              <span id="tp-chips-5" style="font-size:8px;color:#FFD700;font-weight:700;"></span>
+            </div>
           </div>
           <div id="tp-cards-5" style="display:flex;gap:2px;margin-top:2px;"></div>
         </div>
-        <div id="tp-action-5" style="display:none;background:rgba(5,2,15,0.9);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
+        <div id="tp-action-5" style="display:none;background:rgba(5,1,15,0.93);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
       </div>
 
-      <!-- ══ SEAT 1 — BOTTOM CENTER (You) ══ -->
-      <div id="tp-seat-1" class="tp-seat" style="position:absolute;left:50%;bottom:13%;transform:translateX(-50%);z-index:60;display:flex;flex-direction:column;align-items:center;gap:3px;">
-        <div style="display:flex;align-items:center;gap:8px;">
-          <img id="tp-av-1" src="assets/custom_icons/avatar_tasavvur_face.jpg" class="tp-avatar" style="width:56px;height:56px;">
-          <div class="tp-name-panel" style="text-align:left;">
-            <div id="tp-name-1" style="font-size:10px;font-weight:700;color:#fff;">Tasavvur (You)</div>
-            <div class="tp-vip">👑 VIP 5</div>
-            <div style="display:flex;align-items:center;gap:3px;margin-top:1px;">
-              <img src="assets/images/icons/luxury_token_red.png" style="width:10px;height:10px;object-fit:contain;">
-              <span id="tp-chips-1" style="font-size:9px;color:#FFD700;font-weight:900;">1,35,000</span>
+      <!-- ══════════════ SEAT 1 — BOTTOM CENTER (YOU) ══════════════ -->
+      <div id="tp-seat-1" class="tp-seat" style="position:absolute;left:50%;bottom:14%;transform:translateX(-50%);z-index:60;display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <!-- Avatar + info row -->
+        <div style="display:flex;align-items:center;gap:9px;">
+          <img id="tp-av-1" src="assets/custom_icons/avatar_tasavvur_face.jpg" class="tp-av" style="width:60px;height:60px;">
+          <div class="tp-panel" style="text-align:left;min-width:100px;">
+            <div style="font-size:10px;font-weight:700;color:#fff;">Tasavvur (You)</div>
+            <div class="tp-vip" style="margin-top:1px;">👑 VIP 5</div>
+            <div style="display:flex;align-items:center;gap:4px;margin-top:2px;">
+              <div class="tp-chip-icon"></div>
+              <span id="tp-chips-1" style="font-size:10px;color:#FFD700;font-weight:900;">1,35,000</span>
             </div>
           </div>
         </div>
-        <!-- My 3 Teen Patti cards -->
-        <div id="tp-cards-1" style="display:flex;gap:5px;margin-top:4px;">
-          <div class="tp-card tp-card-deal" style="animation-delay:0s;"><span class="tp-card-r">♛</span></div>
-          <div class="tp-card tp-card-deal" style="animation-delay:0.15s;"><span class="tp-card-r">♛</span></div>
-          <div class="tp-card tp-card-deal" style="animation-delay:0.3s;"><span class="tp-card-r">♛</span></div>
+        <!-- 3 large cards -->
+        <div id="tp-cards-1" style="display:flex;gap:6px;margin-top:2px;">
+          <div class="tp-card tp-card-lg tp-card-deal" style="animation-delay:0.0s;"></div>
+          <div class="tp-card tp-card-lg tp-card-deal" style="animation-delay:0.15s;"></div>
+          <div class="tp-card tp-card-lg tp-card-deal" style="animation-delay:0.3s;"></div>
         </div>
+        <!-- Name label under cards -->
+        <div style="font-size:9px;color:rgba(255,255,255,0.7);font-weight:600;margin-top:1px;">Tasavvur (You)</div>
         <!-- Blind/Seen badge -->
-        <div id="tp-blind-badge" style="background:linear-gradient(90deg,#1a0a40,#2d1060);border:1.5px solid #FFD700;border-radius:8px;padding:2px 10px;font-size:8px;font-weight:900;color:#FFD700;margin-top:2px;">BLIND</div>
-        <div id="tp-action-1" style="display:none;background:rgba(5,2,15,0.9);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:9px;font-weight:bold;margin-top:2px;"></div>
+        <div id="tp-blind-badge" style="background:linear-gradient(90deg,#1a0a40,#2d1060);border:1.5px solid #C9A227;border-radius:8px;padding:2px 12px;font-size:8px;font-weight:900;color:#FFD700;margin-top:1px;">BLIND</div>
+        <div id="tp-action-1" style="display:none;background:rgba(5,1,15,0.93);border:1px solid #FFD700;border-radius:6px;padding:2px 10px;color:#fff;font-size:9px;font-weight:bold;margin-top:2px;"></div>
       </div>
 
-      <!-- ══ BOTTOM FOOTER ══ -->
-      <div id="tp-controls-footer" style="position:absolute;bottom:0;left:0;width:100%;height:70px;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 8px;background:linear-gradient(0deg,rgba(3,1,10,0.98),rgba(3,1,10,0.82));border-top:1.5px solid rgba(201,162,39,0.4);box-shadow:0 -4px 20px rgba(0,0,0,0.9);">
+      <!-- ══════════════ BOTTOM FOOTER BAR ══════════════ -->
+      <div id="tp-controls-footer" style="position:absolute;bottom:0;left:0;width:100%;height:72px;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 10px;background:linear-gradient(0deg,rgba(2,0,7,0.99),rgba(2,0,7,0.88));border-top:2px solid rgba(201,162,39,0.45);box-shadow:0 -5px 22px rgba(0,0,0,0.95);">
 
-        <!-- Left: Chat + History -->
-        <div style="display:flex;gap:5px;flex-shrink:0;">
-          <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#1a0a40,#3d1f80);border:2px solid rgba(201,162,39,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:1px;" class="tpbtn" onclick="alert('Chat!')">
-            <span style="font-size:16px;">💬</span><span style="font-size:6px;color:#FFD700;font-weight:700;">CHAT</span>
+        <!-- LEFT: Chat + History (round gold buttons) -->
+        <div style="display:flex;gap:6px;flex-shrink:0;">
+          <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#1c0c44,#3d1f80);border:2px solid #C9A227;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer;box-shadow:0 0 10px rgba(201,162,39,0.3);" class="tpbtn" onclick="alert('Chat!')">
+            <span style="font-size:17px;">💬</span><span style="font-size:6.5px;color:#FFD700;font-weight:700;">CHAT</span>
           </div>
-          <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#1a0a40,#3d1f80);border:2px solid rgba(201,162,39,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:1px;" class="tpbtn" onclick="alert('History!')">
-            <span style="font-size:16px;">🕒</span><span style="font-size:6px;color:#FFD700;font-weight:700;">HISTORY</span>
+          <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#1c0c44,#3d1f80);border:2px solid #C9A227;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer;box-shadow:0 0 10px rgba(201,162,39,0.3);" class="tpbtn" onclick="alert('History!')">
+            <span style="font-size:17px;">🕒</span><span style="font-size:6.5px;color:#FFD700;font-weight:700;">HISTORY</span>
           </div>
         </div>
 
-        <!-- Center: Action Buttons -->
-        <div style="display:flex;align-items:center;gap:6px;">
-          <!-- PACK -->
-          <button id="tp-btn-pack" style="height:46px;padding:0 16px;border-radius:24px;border:2px solid #8B0000;background:linear-gradient(180deg,#CC2222,#7A0000);color:#fff;font-size:13px;font-weight:900;cursor:pointer;letter-spacing:0.5px;box-shadow:0 3px 10px rgba(200,0,0,0.5),inset 0 1px 0 rgba(255,100,100,0.3);text-shadow:0 1px 2px #000;" class="tpbtn" onclick="tpPlayerAction('PACK')">PACK</button>
-          <!-- CHAAL -->
-          <button id="tp-btn-chaal" style="height:46px;padding:0 16px;border-radius:24px;border:2px solid #8B6000;background:linear-gradient(180deg,#D4960A,#8B6000);color:#fff;font-size:13px;font-weight:900;cursor:pointer;letter-spacing:0.5px;box-shadow:0 3px 10px rgba(212,150,10,0.5),inset 0 1px 0 rgba(255,220,100,0.3);text-shadow:0 1px 2px #000;" class="tpbtn" onclick="tpPlayerAction('CHAAL')">CHAAL</button>
-          <!-- SEE -->
-          <button id="tp-btn-see" style="height:46px;padding:0 18px;border-radius:24px;border:2px solid #1a6b00;background:linear-gradient(180deg,#228B22,#145214);color:#fff;font-size:14px;font-weight:900;cursor:pointer;letter-spacing:0.5px;box-shadow:0 3px 10px rgba(34,139,34,0.5),inset 0 1px 0 rgba(100,255,100,0.2);text-shadow:0 1px 2px #000;" class="tpbtn" onclick="tpPlayerAction('SEE')">SEE</button>
-          <!-- SIDE SHOW -->
-          <button id="tp-btn-sideshow" style="height:46px;padding:0 12px;border-radius:24px;border:2px solid #5B0080;background:linear-gradient(180deg,#8B00B5,#4A0070);color:#fff;font-size:11px;font-weight:900;cursor:pointer;letter-spacing:0.5px;box-shadow:0 3px 10px rgba(139,0,181,0.5),inset 0 1px 0 rgba(200,100,255,0.2);text-shadow:0 1px 2px #000;line-height:1.2;white-space:nowrap;" class="tpbtn" onclick="tpPlayerAction('SIDE SHOW')">SIDE<br>SHOW</button>
+        <!-- CENTER: PACK | CHAAL | SEE | SIDE SHOW | bet control | BLIND toggle -->
+        <div style="display:flex;align-items:center;gap:7px;">
+          <button id="tp-btn-pack" style="height:50px;min-width:78px;border-radius:25px;border:2.5px solid #8B0000;background:linear-gradient(180deg,#D42222 0%,#880000 100%);color:#fff;font-size:14px;font-weight:900;cursor:pointer;letter-spacing:0.5px;box-shadow:0 4px 12px rgba(200,0,0,0.55),inset 0 1px 0 rgba(255,120,120,0.25);text-shadow:0 1px 3px rgba(0,0,0,0.6);" class="tpbtn" onclick="tpPlayerAction('PACK')">PACK</button>
+
+          <button id="tp-btn-chaal" style="height:50px;min-width:88px;border-radius:25px;border:2.5px solid #8B6000;background:linear-gradient(180deg,#D4960A 0%,#7B4F00 100%);color:#fff;font-size:14px;font-weight:900;cursor:pointer;letter-spacing:0.5px;box-shadow:0 4px 12px rgba(212,150,10,0.55),inset 0 1px 0 rgba(255,230,100,0.25);text-shadow:0 1px 3px rgba(0,0,0,0.6);" class="tpbtn" onclick="tpPlayerAction('CHAAL')">CHAAL</button>
+
+          <button id="tp-btn-see" style="height:50px;min-width:78px;border-radius:25px;border:2.5px solid #145214;background:linear-gradient(180deg,#228B22 0%,#0d4d0d 100%);color:#fff;font-size:15px;font-weight:900;cursor:pointer;letter-spacing:0.5px;box-shadow:0 4px 12px rgba(34,139,34,0.55),inset 0 1px 0 rgba(100,255,100,0.18);text-shadow:0 1px 3px rgba(0,0,0,0.6);" class="tpbtn" onclick="tpPlayerAction('SEE')">SEE</button>
+
+          <button id="tp-btn-sideshow" style="height:50px;min-width:88px;border-radius:25px;border:2.5px solid #5a0080;background:linear-gradient(180deg,#9400c8 0%,#4a0070 100%);color:#fff;font-size:12px;font-weight:900;cursor:pointer;box-shadow:0 4px 12px rgba(148,0,200,0.55),inset 0 1px 0 rgba(200,100,255,0.18);text-shadow:0 1px 3px rgba(0,0,0,0.6);line-height:1.2;padding:0 10px;" class="tpbtn" onclick="tpPlayerAction('SIDE SHOW')">SIDE<br>SHOW</button>
+
           <!-- Bet amount control -->
-          <div style="display:flex;align-items:center;background:linear-gradient(135deg,rgba(10,5,25,0.95),rgba(30,15,60,0.9));border:2px solid rgba(201,162,39,0.6);border-radius:22px;height:46px;padding:0 4px;gap:3px;">
-            <button style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,215,0,0.3);color:#FFD700;font-size:16px;font-weight:900;cursor:pointer;line-height:1;" onclick="tpAdjustBet(-1000)">−</button>
+          <div style="display:flex;align-items:center;background:linear-gradient(135deg,rgba(8,3,20,0.96),rgba(28,12,55,0.92));border:2px solid rgba(201,162,39,0.6);border-radius:25px;height:50px;padding:0 6px;gap:4px;">
+            <button style="width:30px;height:30px;border-radius:50%;background:rgba(201,162,39,0.15);border:1.5px solid rgba(201,162,39,0.4);color:#FFD700;font-size:18px;font-weight:900;cursor:pointer;line-height:1;" onclick="tpAdjustBet(-1000)">−</button>
             <span id="tp-bet-amount" style="font-size:11px;font-weight:900;color:#FFD700;min-width:52px;text-align:center;">10,000</span>
-            <button style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,215,0,0.3);color:#FFD700;font-size:16px;font-weight:900;cursor:pointer;line-height:1;" onclick="tpAdjustBet(1000)">+</button>
+            <button style="width:30px;height:30px;border-radius:50%;background:rgba(201,162,39,0.15);border:1.5px solid rgba(201,162,39,0.4);color:#FFD700;font-size:18px;font-weight:900;cursor:pointer;line-height:1;" onclick="tpAdjustBet(1000)">+</button>
           </div>
-          <!-- BLIND/SEEN toggle -->
-          <div id="tp-blind-toggle" style="height:46px;background:linear-gradient(135deg,rgba(10,5,25,0.95),rgba(30,15,60,0.9));border:2px solid rgba(201,162,39,0.5);border-radius:22px;display:flex;align-items:center;padding:0 8px;gap:6px;cursor:pointer;" onclick="tpToggleSeen()" class="tpbtn">
-            <div id="tp-blind-lbl" style="font-size:10px;font-weight:900;color:#C9A227;letter-spacing:0.5px;">BLIND</div>
-            <div style="width:28px;height:16px;background:#3d1f80;border-radius:8px;border:1px solid rgba(201,162,39,0.4);position:relative;">
-              <div id="tp-blind-knob" style="position:absolute;left:2px;top:2px;width:12px;height:12px;border-radius:50%;background:#FFD700;transition:left 0.2s;box-shadow:0 0 4px rgba(255,215,0,0.8);"></div>
+
+          <!-- BLIND / SEEN toggle -->
+          <div id="tp-blind-toggle" onclick="tpToggleSeen()" class="tpbtn" style="display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(8,3,20,0.96),rgba(28,12,55,0.92));border:2px solid rgba(201,162,39,0.5);border-radius:25px;height:50px;padding:0 12px;cursor:pointer;">
+            <span id="tp-blind-lbl" style="font-size:10px;font-weight:900;color:#C9A227;">BLIND</span>
+            <div style="position:relative;width:32px;height:18px;background:rgba(30,15,60,0.9);border-radius:9px;border:1px solid rgba(201,162,39,0.35);">
+              <div id="tp-blind-knob" style="position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFE066,#C9A227);transition:left 0.25s;box-shadow:0 0 5px rgba(255,215,0,0.7);"></div>
             </div>
-            <div id="tp-seen-lbl" style="font-size:10px;font-weight:900;color:rgba(255,255,255,0.3);">SEEN</div>
+            <span id="tp-seen-lbl" style="font-size:10px;font-weight:900;color:rgba(255,255,255,0.28);">SEEN</span>
           </div>
         </div>
 
-        <!-- Right: Dealer + Mute -->
-        <div style="display:flex;gap:5px;flex-shrink:0;">
-          <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#7B4F00,#FFD700);border:2px solid #FFD700;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:1px;box-shadow:0 0 12px rgba(255,215,0,0.4);" class="tpbtn" onclick="tpStartRound()">
-            <span style="font-size:14px;font-weight:900;color:#000;">D</span><span style="font-size:6px;color:#000;font-weight:700;">DEAL</span>
+        <!-- RIGHT: Dealer D + Mute -->
+        <div style="display:flex;gap:6px;flex-shrink:0;">
+          <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#7B4F00,#FFD700,#C9A227);border:2.5px solid #FFD700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer;box-shadow:0 0 14px rgba(255,215,0,0.5);" class="tpbtn" onclick="tpStartRound()">
+            <span style="font-size:16px;font-weight:900;color:#000;line-height:1;">D</span><span style="font-size:6.5px;color:#000;font-weight:700;">DEAL</span>
           </div>
-          <div id="tp-mute-btn" style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#1a0a40,#3d1f80);border:2px solid rgba(201,162,39,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:1px;" class="tpbtn" onclick="tpToggleMute()">
-            <span id="tp-mute-icon" style="font-size:16px;">🔊</span><span style="font-size:6px;color:#FFD700;font-weight:700;">MUTE</span>
+          <div id="tp-mute-btn" style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#1c0c44,#3d1f80);border:2px solid #C9A227;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer;" class="tpbtn" onclick="tpToggleMute()">
+            <span id="tp-mute-icon" style="font-size:17px;">🔊</span><span style="font-size:6.5px;color:#FFD700;font-weight:700;">MUTE</span>
           </div>
         </div>
       </div>
+
     </div>
 
         <!-- ─── UNIVERSAL MODAL POPUP ─── -->
