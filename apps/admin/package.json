@@ -1,0 +1,9 @@
+{
+  "name": "@teenpatti/admin",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo \"Admin Dashboard Dev Server Placeholder\"",
+    "build": "echo \"Admin Dashboard Build Placeholder\""
+  }
+}

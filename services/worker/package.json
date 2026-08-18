@@ -1,0 +1,22 @@
+{
+  "name": "@teenpatti/worker",
+  "version": "1.0.0",
+  "main": "dist/worker.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/worker.ts",
+    "start": "node dist/worker.js"
+  },
+  "dependencies": {
+    "@teenpatti/config": "workspace:*",
+    "@teenpatti/logger": "workspace:*",
+    "bullmq": "^5.1.5",
+    "dotenv": "^16.4.1",
+    "ioredis": "^5.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

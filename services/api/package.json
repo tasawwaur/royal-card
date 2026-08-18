@@ -1,0 +1,24 @@
+{
+  "name": "@teenpatti/api",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/server.ts",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@teenpatti/config": "workspace:*",
+    "@teenpatti/game-rules": "workspace:*",
+    "@teenpatti/logger": "workspace:*",
+    "@teenpatti/shared-types": "workspace:*",
+    "dotenv": "^16.4.1",
+    "fastify": "^4.26.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

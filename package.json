@@ -1,0 +1,26 @@
+{
+  "name": "teen-patti-gold-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full Multiplayer Teen Patti Game Monorepo",
+  "scripts": {
+    "build": "npx pnpm --recursive run build",
+    "test": "npx pnpm --recursive run test",
+    "dev": "npx pnpm --parallel --recursive run dev",
+    "lint": "npx pnpm --recursive run lint",
+    "clean": "npx pnpm --recursive run clean",
+    "demo:andar-bahar": "npx ts-node --transpile-only scripts/demo-andar-bahar.ts",
+    "demo:poker": "npx ts-node --transpile-only tests/game-rules/poker.test.ts",
+    "demo:rummy": "npx ts-node --transpile-only tests/game-rules/rummy.test.ts",
+    "demo:teen-patti": "npx ts-node --transpile-only tests/game-rules/hand-evaluator.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
