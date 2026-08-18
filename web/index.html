@@ -1111,9 +1111,9 @@
     </div>
 
     <!-- ─── POKER GAME FULL SCREEN ─── -->
-    <div id="screen-poker" class="screen" style="background: url('assets/poker_table_bg.jpg') no-repeat center center; background-size: 100% 100%; width: 100%; height: 100%; position: relative;">
+    <div id="screen-poker" class="screen" style="background: url('assets/poker_ui_assets/01_table.png') no-repeat center center; background-size: 100% 100%; width: 100%; height: 100%; position: relative;">
       <!-- Menu Button Hotspot to go back to Home Screen -->
-      <div style="position: absolute; left: 1.5%; top: 2.5%; width: 6.0%; height: 11.0%; cursor: pointer; z-index: 100;" onclick="document.getElementById('screen-poker').classList.remove('active'); document.getElementById('screen-home').classList.add('active');" title="Back to Lobby"></div>
+      <div style="position: absolute; left: 1.5%; top: 2.5%; width: 6.0%; height: 11.0%; cursor: pointer; z-index: 100;" onclick="pokerExitToLobby()" title="Back to Lobby"></div>
 
 
       <!-- Seat 1: Bottom Center (You / Host) -->
@@ -1187,8 +1187,8 @@
       <div style="position: absolute; top: 0; left: 0; width: 100%; height: 50px; z-index: 150; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; background: linear-gradient(180deg, rgba(7,1,14,0.95), rgba(0,0,0,0)); pointer-events: auto;">
         <!-- Left Side: Back Arrow and Name -->
         <div style="display: flex; align-items: center; gap: 8px;">
-          <!-- Back arrow button -->
-          <div style="font-size: 14px; color: #FFD700; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border: 1.5px solid rgba(255,215,0,0.5); border-radius: 6px; background: rgba(7,1,14,0.85); font-weight: bold;" onclick="pokerExitToLobby()">◀</div>
+          <!-- Back arrow menu button -->
+          <img src="assets/poker_ui_assets/24_leave_table.png" style="width: 28px; height: 28px; cursor: pointer; object-fit: contain;" onclick="pokerExitToLobby()" title="Leave Table">
           
           <!-- Seated Player Info Header -->
           <div style="display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,215,0,0.25); border-radius: 20px; padding: 2px 10px 2px 4px; font-family: 'Outfit', sans-serif;">
@@ -1202,58 +1202,47 @@
               <span id="poker-header-name" style="font-size: 8px; font-weight: bold; color: #fff;">Tasavvur</span>
               <span id="poker-header-vip" style="font-size: 7px; color: #FFD700; font-weight: 900;">👑 VIP 5</span>
             </div>
+            <!-- Decorative logo icon next to name -->
+            <img src="assets/poker_ui_assets/02_profile_logo.png" style="width: 12px; height: 12px; object-fit: contain; margin-left: 2px;">
           </div>
         </div>
 
         <!-- Middle: Blinds HUD & Balance Info -->
-        <div style="display: flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: bold; color: #fff;">
-          <div style="display: flex; align-items: center; gap: 4px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,215,0,0.3); border-radius: 12px; padding: 2px 8px; height: 20px;">
-            <span style="display: inline-flex; align-items: center; justify-content: center; width: 10px; height: 10px;"><img src="assets/images/icons/luxury_token_red.png" style="width: 100%; height: 100%; object-fit: contain;"></span>
-            <span id="poker-header-chips">82K</span>
-            <span style="color: #00FF66; font-size: 10px; cursor: pointer; margin-left: 2px; font-weight:900;">+</span>
+        <div style="display: flex; align-items: center; gap: 12px; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: bold; color: #fff;">
+          <!-- Chips balance bar with PNG background -->
+          <div style="background: url('assets/poker_ui_assets/03_chips_balance.png') no-repeat; background-size: contain; width: 85px; height: 26px; display: flex; align-items: center; justify-content: flex-end; padding-right: 18px; color: #fff; position: relative;">
+            <span id="poker-header-chips" style="font-size: 9px; font-weight: bold; font-family: 'Outfit', sans-serif;">82K</span>
+            <div style="position: absolute; right: 0; width: 18px; height: 100%; cursor: pointer;" onclick="openShopModal('chips')" title="Add Chips"></div>
           </div>
-          <div style="display: flex; align-items: center; gap: 4px; background: rgba(0,0,0,0.6); border: 1px solid #00E5FF; border-radius: 12px; padding: 2px 8px; height: 20px;">
-            <span style="color: #00E5FF;">💎</span>
-            <span id="poker-header-gems">600</span>
-            <span style="color: #00E5FF; font-size: 10px; cursor: pointer; margin-left: 2px; font-weight:900;">+</span>
+          <!-- Diamonds balance bar with PNG background -->
+          <div style="background: url('assets/poker_ui_assets/04_diamond_balance.png') no-repeat; background-size: contain; width: 85px; height: 26px; display: flex; align-items: center; justify-content: flex-end; padding-right: 18px; color: #fff; position: relative;">
+            <span id="poker-header-gems" style="font-size: 9px; font-weight: bold; font-family: 'Outfit', sans-serif;">600</span>
+            <div style="position: absolute; right: 0; width: 18px; height: 100%; cursor: pointer;" onclick="openShopModal('gems')" title="Add Gems"></div>
           </div>
         </div>
 
         <!-- Right Side: Top menu shortcuts -->
-        <div style="display: flex; align-items: center; gap: 10px; font-family: 'Outfit', sans-serif; font-size: 8px; color: #FFD700; font-weight: bold;">
-          <div style="display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: 0.85;" onclick="clickGridAction('bonus')">
-            <span style="font-size: 12px;">🎁</span>
-            <span style="margin-top:1px;">Bonus</span>
-          </div>
-          <div style="display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: 0.85;" onclick="clickGridAction('lucky')">
-            <span style="font-size: 12px;">🎡</span>
-            <span style="margin-top:1px;">Lucky</span>
-          </div>
-          <div style="display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: 0.85;" onclick="clickGridAction('leaderboard')">
-            <span style="font-size: 12px;">🏆</span>
-            <span style="margin-top:1px;">Rank</span>
-          </div>
-          <div style="display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: 0.85;" onclick="alert('Lobby mail items loaded!')">
-            <span style="font-size: 12px;">✉️</span>
-            <span style="margin-top:1px;">Inbox</span>
-          </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <img src="assets/poker_ui_assets/06_invite_button.png" style="width: 26px; height: 26px; cursor: pointer; object-fit: contain;" onclick="alert('Invite friends code: RCG-56879')" title="Invite">
+          <img src="assets/poker_ui_assets/08_rules_button.png" style="width: 26px; height: 26px; cursor: pointer; object-fit: contain;" onclick="clickGridAction('leaderboard')" title="Rank / Rules">
+          <img src="assets/poker_ui_assets/07_settings_button.png" style="width: 26px; height: 26px; cursor: pointer; object-fit: contain;" onclick="alert('Settings panel active!')" title="Settings">
         </div>
       </div>
 
-      <!-- CENTER HUD: POT BOX -->
-      <div id="poker-pot-hud" style="position: absolute; left: 50%; top: 31%; transform: translate(-50%, -50%); z-index: 100; background: rgba(7,1,14,0.85); border: 1.5px solid #FFD700; border-radius: 12px; padding: 4px 16px; color: #fff; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; align-items: center; min-width: 90px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-        <span style="font-size: 7.5px; color: rgba(255,255,255,0.6); text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Pot</span>
-        <div style="display: flex; align-items: center; gap: 4px; margin-top: 1px;">
-          <span style="display: inline-flex; align-items: center; justify-content: center; width: 10px; height: 10px;"><img src="assets/images/icons/luxury_token_red.png" style="width: 100%; height: 100%; object-fit: contain;"></span>
-          <span id="poker-pot-value" style="font-size: 11px; font-weight: 900; color: #00FF66;">0</span>
+      <!-- CENTER HUD: POT BOX (Using pre-rendered pot panel) -->
+      <div id="poker-pot-hud" style="position: absolute; left: 50%; top: 31%; transform: translate(-50%, -50%); z-index: 100; background: url('assets/poker_ui_assets/14_pot_panel.png') no-repeat center; background-size: contain; width: 100px; height: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-family: 'Outfit', sans-serif;">
+        <span style="font-size: 6.5px; color: rgba(255,255,255,0.5); text-transform: uppercase; font-weight: bold; margin-top: -2px;">Pot</span>
+        <div style="display: flex; align-items: center; gap: 3px; margin-top: 1px;">
+          <img src="assets/images/icons/luxury_token_red.png" style="width: 9px; height: 9px; object-fit: contain;">
+          <span id="poker-pot-value" style="font-size: 10px; font-weight: 900; color: #00FF66; line-height: 1;">0</span>
         </div>
       </div>
 
-      <!-- CENTER HUD: BLINDS ROOM ID -->
-      <div style="position: absolute; left: 50%; top: 56%; transform: translate(-50%, -50%); z-index: 100; border-top: 1px solid rgba(255,215,0,0.15); border-bottom: 1px solid rgba(255,215,0,0.15); padding: 4px 12px; color: #fff; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; align-items: center; pointer-events: none;">
-        <span style="font-size: 11px; font-weight: bold; color: rgba(255,255,255,0.6); letter-spacing: 1px; text-transform: uppercase;">Poker</span>
-        <span style="font-size: 7.5px; color: rgba(255,215,0,0.7); font-weight: bold; margin-top: 1px;">BLINDS: 1,000 / 2,000</span>
-        <span style="font-size: 6.5px; color: rgba(255,255,255,0.3); margin-top: 1px;">ROOM ID: #RCG-56879</span>
+      <!-- CENTER HUD: BLINDS ROOM ID (Using pre-rendered game info panel) -->
+      <div style="position: absolute; left: 50%; top: 56%; transform: translate(-50%, -50%); z-index: 100; background: url('assets/poker_ui_assets/15_game_info.png') no-repeat center; background-size: contain; width: 130px; height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-family: 'Outfit', sans-serif; pointer-events: none; text-align: center; padding-top: 2px;">
+        <span style="font-size: 9px; font-weight: bold; color: rgba(255,255,255,0.7); letter-spacing: 0.5px; text-transform: uppercase;">Poker</span>
+        <span style="font-size: 7px; color: rgba(255,215,0,0.85); font-weight: bold; margin-top: 1px;">BLINDS: 1,000 / 2,000</span>
+        <span style="font-size: 6px; color: rgba(255,255,255,0.4); margin-top: 1px;">ROOM ID: #RCG-56879</span>
       </div>
 
       <!-- CENTER HUD: COMMUNITY CARDS SLOT -->
@@ -1286,25 +1275,22 @@
       <div id="poker-controls-footer" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 55px; z-index: 150; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; background: rgba(7, 1, 14, 0.95); border-top: 1.5px solid rgba(255, 215, 0, 0.4); box-shadow: 0 -4px 15px rgba(0,0,0,0.8); font-family: 'Outfit', sans-serif;">
         <!-- Left: Chat & History -->
         <div style="display: flex; align-items: center; gap: 8px;">
-          <button style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7px; font-weight: bold;" onclick="alert('Chat lobby is active!')">
-            <span style="font-size: 14px;">💬</span>
-            <span>CHAT</span>
-          </button>
-          <button style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7px; font-weight: bold;" onclick="alert('Hand statistics and logs are up to date!')">
-            <span style="font-size: 14px;">🕒</span>
-            <span>HISTORY</span>
-          </button>
+          <img src="assets/poker_ui_assets/22_chat_button.png" style="width: 32px; height: 32px; cursor: pointer; object-fit: contain;" onclick="alert('Chat lobby is active!')">
+          <img src="assets/poker_ui_assets/23_history_button.png" style="width: 32px; height: 32px; cursor: pointer; object-fit: contain;" onclick="alert('Hand statistics and logs are up to date!')">
         </div>
 
-        <!-- Center: Action Buttons -->
+        <!-- Center: Pre-rendered Action Buttons -->
         <div style="display: flex; align-items: center; gap: 8px;">
-          <button id="poker-btn-fold" style="min-width: 65px; height: 34px; border-radius: 8px; border: 1.5px solid #ff4444; background: linear-gradient(180deg, #b91c1c, #7f1d1d); color: #fff; font-size: 10px; font-weight: 900; letter-spacing: 0.5px; cursor: pointer; text-shadow: 0 1px 1px #000; box-shadow: 0 2px 4px rgba(0,0,0,0.4);" onclick="pokerPlayerAction('FOLD')">FOLD</button>
-          <button id="poker-btn-check" style="min-width: 65px; height: 34px; border-radius: 8px; border: 1.5px solid #FFD700; background: linear-gradient(180deg, #b45309, #78350f); color: #fff; font-size: 10px; font-weight: 900; letter-spacing: 0.5px; cursor: pointer; text-shadow: 0 1px 1px #000; box-shadow: 0 2px 4px rgba(0,0,0,0.4);" onclick="pokerPlayerAction('CHECK')">CHECK</button>
-          <button id="poker-btn-call" style="min-width: 80px; height: 34px; border-radius: 8px; border: 1.5px solid #00FF66; background: linear-gradient(180deg, #15803d, #14532d); color: #fff; font-size: 9px; font-weight: 900; letter-spacing: 0.5px; cursor: pointer; text-shadow: 0 1px 1px #000; box-shadow: 0 2px 4px rgba(0,0,0,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center;" onclick="pokerPlayerAction('CALL')">
-            <span>CALL ANY</span>
-            <span id="poker-call-amount" style="font-size: 9px; font-weight: bold; color: #00FF66;">2,000</span>
-          </button>
-          <button id="poker-btn-raise" style="min-width: 65px; height: 34px; border-radius: 8px; border: 1.5px solid #c084fc; background: linear-gradient(180deg, #6b21a8, #581c87); color: #fff; font-size: 10px; font-weight: 900; letter-spacing: 0.5px; cursor: pointer; text-shadow: 0 1px 1px #000; box-shadow: 0 2px 4px rgba(0,0,0,0.4);" onclick="pokerPlayerAction('RAISE')">RAISE</button>
+          <img id="poker-btn-fold" src="assets/poker_ui_assets/18_fold_button.png" style="width: 65px; height: 34px; cursor: pointer; object-fit: contain; transition: transform 0.1s;" onclick="pokerPlayerAction('FOLD')">
+          <img id="poker-btn-check" src="assets/poker_ui_assets/19_check_button.png" style="width: 65px; height: 34px; cursor: pointer; object-fit: contain; transition: transform 0.1s;" onclick="pokerPlayerAction('CHECK')">
+          
+          <!-- Call Any Relative Div wrapping PNG Background and dynamic text -->
+          <div id="poker-btn-call" style="background: url('assets/poker_ui_assets/20_call_any_button.png') no-repeat center; background-size: contain; width: 75px; height: 34px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-family: 'Outfit', sans-serif; line-height: 1.1; font-weight: 900; font-size: 7.5px;" onclick="pokerPlayerAction('CALL')">
+            <span style="font-size: 6px; opacity: 0.7;">CALL ANY</span>
+            <span id="poker-call-amount" style="font-size: 8px; color: #00FF66;">2,000</span>
+          </div>
+
+          <img id="poker-btn-raise" src="assets/poker_ui_assets/21_raise_button.png" style="width: 65px; height: 34px; cursor: pointer; object-fit: contain; transition: transform 0.1s;" onclick="pokerPlayerAction('RAISE')">
 
           <!-- Raise Slider Inputs -->
           <div style="display: flex; align-items: center; background: rgba(0,0,0,0.5); border: 1.5px solid rgba(255,215,0,0.4); border-radius: 8px; height: 34px; padding: 2px 6px; gap: 6px;">

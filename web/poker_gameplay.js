@@ -249,17 +249,13 @@ function pokerRenderPlayerCards() {
     `).join('');
   }
 
-  // Render Bot Card Backs next to bot seats
+  // Render Bot Card Backs next to bot seats (using pre-rendered card back PNGs!)
   for (let s = 2; s <= 5; s++) {
     const botContainer = document.getElementById('poker-cards-' + s);
     if (botContainer) {
       botContainer.innerHTML = `
-        <div class="poker-card-back" style="width: 20px; height: 28px; background: linear-gradient(135deg, #150d2e, #090518); border: 1px solid #d4af37; border-radius: 3px; box-shadow: 0 2px 4px rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; transform: rotate(-8deg); z-index: 5;">
-          <div style="width: calc(100% - 2px); height: calc(100% - 2px); border: 0.5px solid rgba(212, 175, 55, 0.4); border-radius: 2px; display: flex; justify-content: center; align-items: center; color: #d4af37; font-family: sans-serif; font-size: 8px; font-weight: bold;">R</div>
-        </div>
-        <div class="poker-card-back" style="width: 20px; height: 28px; background: linear-gradient(135deg, #150d2e, #090518); border: 1px solid #d4af37; border-radius: 3px; box-shadow: 0 2px 4px rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; transform: rotate(8deg); margin-left: -8px; z-index: 10;">
-          <div style="width: calc(100% - 2px); height: calc(100% - 2px); border: 0.5px solid rgba(212, 175, 55, 0.4); border-radius: 2px; display: flex; justify-content: center; align-items: center; color: #d4af37; font-family: sans-serif; font-size: 8px; font-weight: bold;">R</div>
-        </div>
+        <img src="assets/poker_ui_assets/16_card_left.png" style="width: 18px; height: 26px; object-fit: contain;">
+        <img src="assets/poker_ui_assets/17_card_right.png" style="width: 18px; height: 26px; object-fit: contain; margin-left: -5px;">
       `;
     }
   }
@@ -747,13 +743,44 @@ function pokerStartNextRound() {
   pokerStartRound();
 }
 
+function pokerGetJoinSeatImage(seatNum) {
+  switch (seatNum) {
+    case 2: return 'assets/poker_ui_assets/12_join_seat.png'; // Bottom-left
+    case 3: return 'assets/poker_ui_assets/10_join_seat.png'; // Left
+    case 4: return 'assets/poker_ui_assets/11_join_seat.png'; // Right
+    case 5: return 'assets/poker_ui_assets/13_join_seat.png'; // Bottom-right
+    default: return 'assets/poker_ui_assets/09_join_seat.png';
+  }
+}
+
 function pokerResetTableUI() {
   pokerClearCommunityCards();
   pokerUpdatePotDisplay();
+  
+  // Hide dealer badge
+  const badge = document.getElementById('poker-dealer-button-badge');
+  if (badge) badge.style.display = 'none';
+
+  pokerSimState.activeSeats = { 1: true, 2: false, 3: false, 4: false, 5: false };
+  pokerSimState.playerProfiles = {
+    1: pokerSimState.playerProfiles[1]
+  };
+
   for (let s = 1; s <= 5; s++) {
     pokerHideActionBubble(s);
     pokerClearSeatCards(s);
     const seatEl = document.getElementById('poker-seat-' + s);
-    if (seatEl) seatEl.classList.remove('active-turn');
+    if (seatEl) {
+      seatEl.classList.remove('active-turn');
+      if (s > 1) {
+        seatEl.className = 'poker-seat-container empty';
+        seatEl.innerHTML = `
+          <div class="poker-seat-placeholder" style="width: 52px; height: 52px; cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden;" onclick="pokerSimulateJoinSeat(${s})">
+            <img src="${pokerGetJoinSeatImage(s)}" style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+          <div class="poker-seat-label" style="background: rgba(0,0,0,0.5); padding: 1px 6px; border-radius: 4px; font-size: 8px; color: rgba(255,255,255,0.5); margin-top: 3px; font-weight: bold;">Seat ${s}</div>
+        `;
+      }
+    }
   }
 }
