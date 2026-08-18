@@ -230,7 +230,7 @@ function pokerUpdateSeatChips(seatNum) {
       // Bots name and chips labels
       const labelSpan = seatEl.querySelector('div:last-child span');
       if (labelSpan) {
-        labelSpan.innerHTML = `${pokerSimState.playerProfiles[seatNum].name}<br><span style="color:#FFD700;">🪙 ${pokerSimState.playerChips[seatNum].toLocaleString()}</span>`;
+        labelSpan.innerHTML = `${pokerSimState.playerProfiles[seatNum].name}<br><span style="color:#FFD700; display:inline-flex; align-items:center; justify-content:center; gap:2.5px; margin-top:1px;"><img src="assets/images/icons/luxury_token_red.png" style="width:10px; height:10px; object-fit:contain;">${pokerSimState.playerChips[seatNum].toLocaleString()}</span>`;
       }
     }
   }
@@ -703,8 +703,8 @@ function pokerAwardWinner(winnerSeat, comboText) {
     <div style="text-align:center; padding:15px; font-family:'Outfit', sans-serif;">
       <h3 style="color:#00FF66; font-size:18px; margin-bottom:10px;">${winnerName} Won!</h3>
       <p style="font-size:12px; color:#fff; margin-bottom:8px;">Combination: <b>${comboText}</b></p>
-      <div style="font-size:16px; font-weight:bold; color:#FFD700; background:rgba(255,215,0,0.15); border:1px solid #FFD700; border-radius:10px; padding:10px; display:inline-block; margin-top:8px;">
-        🪙 +${winAmt.toLocaleString()} Chips
+      <div style="font-size:16px; font-weight:bold; color:#FFD700; background:rgba(255,215,0,0.15); border:1px solid #FFD700; border-radius:10px; padding:10px; display:inline-flex; align-items:center; justify-content:center; gap:4px; margin-top:8px;">
+        <img src="assets/images/icons/luxury_token_red.png" style="width: 14px; height: 14px; object-fit: contain;">+${winAmt.toLocaleString()} Chips
       </div>
     </div>
   `);
@@ -730,8 +730,8 @@ function pokerTriggerSingleWinner(winnerSeat) {
     <div style="text-align:center; padding:15px; font-family:'Outfit', sans-serif;">
       <h3 style="color:#00FF66; font-size:16px; margin-bottom:10px;">${winnerName} Won the Pot!</h3>
       <p style="font-size:11px; color:#fff; margin-bottom:8px;">All other players folded.</p>
-      <div style="font-size:14px; font-weight:bold; color:#FFD700; background:rgba(255,215,0,0.15); border:1px solid #FFD700; border-radius:10px; padding:8px; display:inline-block; margin-top:8px;">
-        🪙 +${winAmt.toLocaleString()} Chips
+      <div style="font-size:14px; font-weight:bold; color:#FFD700; background:rgba(255,215,0,0.15); border:1px solid #FFD700; border-radius:10px; padding:8px; display:inline-flex; align-items:center; justify-content:center; gap:4px; margin-top:8px;">
+        <img src="assets/images/icons/luxury_token_red.png" style="width: 12px; height: 12px; object-fit: contain;">+${winAmt.toLocaleString()} Chips
       </div>
     </div>
   `);

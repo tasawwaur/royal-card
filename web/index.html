@@ -1127,8 +1127,12 @@
           </div>
           <span id="poker-my-level" style="position: absolute; left: 50%; bottom: -3px; transform: translateX(-50%); font-size: 8px; font-weight: 900; color: #fff; text-shadow: 0 1px 2px #000; font-family: 'Outfit', sans-serif; pointer-events: none; z-index: 10;">108</span>
         </div>
-        <div style="background: rgba(0, 0, 0, 0.75); border: 1px solid rgba(255, 215, 0, 0.5); padding: 1px 8px; border-radius: 4px; font-size: 9px; font-weight: bold; color: #FFD700; margin-top: 3px; font-family: 'Outfit', sans-serif; text-shadow: 0 1px 1px #000; text-align: center; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-          <span id="poker-my-name">Tasavvur</span>
+        <div style="background: rgba(0, 0, 0, 0.75); border: 1px solid rgba(255, 215, 0, 0.5); padding: 2px 8px; border-radius: 4px; font-size: 9px; font-weight: bold; color: #FFD700; margin-top: 3px; font-family: 'Outfit', sans-serif; text-shadow: 0 1px 1px #000; text-align: center; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+          <span id="poker-my-name" style="color: #fff;">Tasavvur</span><br>
+          <span style="font-size: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 2.5px; margin-top: 1px;">
+            <img src="assets/images/icons/luxury_token_red.png" style="width: 10px; height: 10px; object-fit: contain;">
+            <span id="poker-chips-stack-1-val" style="color: #FFD700;">135,000</span>
+          </span>
         </div>
       </div>
 
@@ -1204,7 +1208,7 @@
         <!-- Middle: Blinds HUD & Balance Info -->
         <div style="display: flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: bold; color: #fff;">
           <div style="display: flex; align-items: center; gap: 4px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,215,0,0.3); border-radius: 12px; padding: 2px 8px; height: 20px;">
-            <span style="color: #FFD700;">🪙</span>
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 10px; height: 10px;"><img src="assets/images/icons/luxury_token_red.png" style="width: 100%; height: 100%; object-fit: contain;"></span>
             <span id="poker-header-chips">82K</span>
             <span style="color: #00FF66; font-size: 10px; cursor: pointer; margin-left: 2px; font-weight:900;">+</span>
           </div>
@@ -1240,7 +1244,7 @@
       <div id="poker-pot-hud" style="position: absolute; left: 50%; top: 31%; transform: translate(-50%, -50%); z-index: 100; background: rgba(7,1,14,0.85); border: 1.5px solid #FFD700; border-radius: 12px; padding: 4px 16px; color: #fff; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; align-items: center; min-width: 90px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
         <span style="font-size: 7.5px; color: rgba(255,255,255,0.6); text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Pot</span>
         <div style="display: flex; align-items: center; gap: 4px; margin-top: 1px;">
-          <span style="font-size: 8px;">🪙</span>
+          <span style="display: inline-flex; align-items: center; justify-content: center; width: 10px; height: 10px;"><img src="assets/images/icons/luxury_token_red.png" style="width: 100%; height: 100%; object-fit: contain;"></span>
           <span id="poker-pot-value" style="font-size: 11px; font-weight: 900; color: #00FF66;">0</span>
         </div>
       </div>
@@ -3156,7 +3160,7 @@
                 </div>
                 <!-- Earning / Wins -->
                 <div style="text-align: right; display: flex; flex-direction: column; gap: 1.5px;">
-                  <span style="font-size: 10px; font-weight: 800; color: #00FF66; font-family: 'Outfit', sans-serif;">🪙 ${(p.coins / 1000).toFixed(0)}K</span>
+                  <span style="font-size: 10px; font-weight: 800; color: #00FF66; font-family: 'Outfit', sans-serif; display: inline-flex; align-items: center; justify-content: flex-end; gap: 2.5px;"><img src="assets/images/icons/luxury_token_red.png" style="width: 10px; height: 10px; object-fit: contain;">${(p.coins / 1000).toFixed(0)}K</span>
                   <span style="font-size: 7.5px; color: rgba(255,255,255,0.4); font-weight: bold;">🏆 ${p.wins} Wins</span>
                 </div>
               </div>
