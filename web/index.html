@@ -1110,212 +1110,239 @@
 
     </div>
 
-    <!-- ─── POKER GAME FULL SCREEN ─── -->
-    <div id="screen-poker" class="screen" style="background: url('assets/poker_ui_assets/01_table.png') no-repeat center center; background-size: 100% 100%; width: 100%; height: 100%; position: relative;">
-      <!-- Menu Button Hotspot to go back to Home Screen -->
-      <div style="position: absolute; left: 1.5%; top: 2.5%; width: 6.0%; height: 11.0%; cursor: pointer; z-index: 100;" onclick="pokerExitToLobby()" title="Back to Lobby"></div>
-
-
-      <!-- Seat 1: Bottom Center (You / Host) -->
-      <div id="poker-seat-1" class="poker-seat-container" style="position: absolute; left: 49.5%; bottom: 4.0%; transform: translateX(-50%); z-index: 40; display: flex; flex-direction: column; align-items: center;">
-        <div class="poker-seat-avatar-wrapper" style="width: 54px; height: 54px; position: relative;">
-          <div class="avatar-frame frame-emperor" style="width: 100%; height: 100%;">
-            <div class="avatar-frame-border"></div>
-            <div class="avatar-frame-image">
-              <img id="poker-my-avatar" src="assets/custom_icons/avatar_tasavvur_face.jpg" style="width:100%; height:100%; object-fit:cover;">
-            </div>
-          </div>
-          <span id="poker-my-level" style="position: absolute; left: 50%; bottom: -3px; transform: translateX(-50%); font-size: 8px; font-weight: 900; color: #fff; text-shadow: 0 1px 2px #000; font-family: 'Outfit', sans-serif; pointer-events: none; z-index: 10;">108</span>
-        </div>
-        <div style="background: rgba(0, 0, 0, 0.75); border: 1px solid rgba(255, 215, 0, 0.5); padding: 2px 8px; border-radius: 4px; font-size: 9px; font-weight: bold; color: #FFD700; margin-top: 3px; font-family: 'Outfit', sans-serif; text-shadow: 0 1px 1px #000; text-align: center; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-          <span id="poker-my-name" style="color: #fff;">Tasavvur</span><br>
-          <span style="font-size: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 2.5px; margin-top: 1px;">
-            <img src="assets/images/icons/luxury_token_red.png" style="width: 10px; height: 10px; object-fit: contain;">
-            <span id="poker-chips-stack-1-val" style="color: #FFD700;">135,000</span>
-          </span>
-        </div>
-      </div>
-
-      <!-- Seat 2: Bottom Left -->
-      <div id="poker-seat-2" class="poker-seat-container empty" style="position: absolute; left: 8.5%; bottom: 36.5%; transform: translate(-50%, 50%); z-index: 40; display: flex; flex-direction: column; align-items: center; transition: all 0.3s ease;">
-        <div class="poker-seat-placeholder" style="width: 52px; height: 52px; border-radius: 50%; cursor: pointer; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5);" onclick="pokerSimulateJoinSeat(2)">
-          <img src="assets/join_seat_icon.jpg" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <div class="poker-seat-label" style="background: rgba(0,0,0,0.5); padding: 1px 6px; border-radius: 4px; font-size: 8px; color: rgba(255,255,255,0.5); margin-top: 3px; font-weight: bold;">Seat 2</div>
-      </div>
-
-      <!-- Seat 3: Top Left -->
-      <div id="poker-seat-3" class="poker-seat-container empty" style="position: absolute; left: 24%; top: 22%; transform: translate(-50%, -50%); z-index: 40; display: flex; flex-direction: column; align-items: center; transition: all 0.3s ease;">
-        <div class="poker-seat-placeholder" style="width: 52px; height: 52px; border-radius: 50%; cursor: pointer; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5);" onclick="pokerSimulateJoinSeat(3)">
-          <img src="assets/join_seat_icon.jpg" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <div class="poker-seat-label" style="background: rgba(0,0,0,0.5); padding: 1px 6px; border-radius: 4px; font-size: 8px; color: rgba(255,255,255,0.5); margin-top: 3px; font-weight: bold;">Seat 3</div>
-      </div>
-
-      <!-- Seat 4: Top Right -->
-      <div id="poker-seat-4" class="poker-seat-container empty" style="position: absolute; right: 24%; top: 22%; transform: translate(50%, -50%); z-index: 40; display: flex; flex-direction: column; align-items: center; transition: all 0.3s ease;">
-        <div class="poker-seat-placeholder" style="width: 52px; height: 52px; border-radius: 50%; cursor: pointer; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5);" onclick="pokerSimulateJoinSeat(4)">
-          <img src="assets/join_seat_icon.jpg" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <div class="poker-seat-label" style="background: rgba(0,0,0,0.5); padding: 1px 6px; border-radius: 4px; font-size: 8px; color: rgba(255,255,255,0.5); margin-top: 3px; font-weight: bold;">Seat 4</div>
-      </div>
-
-      <!-- Seat 5: Bottom Right -->
-      <div id="poker-seat-5" class="poker-seat-container empty" style="position: absolute; right: 8.5%; bottom: 36%; transform: translate(50%, 50%); z-index: 40; display: flex; flex-direction: column; align-items: center; transition: all 0.3s ease;">
-        <div class="poker-seat-placeholder" style="width: 52px; height: 52px; border-radius: 50%; cursor: pointer; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5);" onclick="pokerSimulateJoinSeat(5)">
-          <img src="assets/join_seat_icon.jpg" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <div class="poker-seat-label" style="background: rgba(0,0,0,0.5); padding: 1px 6px; border-radius: 4px; font-size: 8px; color: rgba(255,255,255,0.5); margin-top: 3px; font-weight: bold;">Seat 5</div>
-      </div>
-
-
-      <!-- Turn pulsing styles -->
+    <!-- ─── TEEN PATTI GAME FULL SCREEN ─── -->
+    <div id="screen-poker" class="screen" style="background:url('assets/tp_table_bg.jpg') no-repeat center center;background-size:100% 100%;width:100%;height:100%;position:relative;overflow:hidden;font-family:'Outfit',sans-serif;">
       <style>
-        @keyframes pulse-gold-poker {
-          0% { box-shadow: 0 0 5px #FFD700; border-color: #FFD700; }
-          50% { box-shadow: 0 0 15px #FFD700; border-color: #fff; }
-          100% { box-shadow: 0 0 5px #FFD700; border-color: #FFD700; }
-        }
-        .poker-seat-container.active-turn .avatar-frame {
-          animation: pulse-gold-poker 1.2s infinite;
-          border-radius: 50%;
-          padding: 1px;
-        }
+        @keyframes tpglow{0%,100%{box-shadow:0 0 8px #FFD700,0 0 20px rgba(255,215,0,0.4)}50%{box-shadow:0 0 18px #fff,0 0 35px rgba(255,215,0,0.7)}}
+        .tp-seat.active-turn .tp-avatar{animation:tpglow 1.2s infinite}
+        @keyframes tpcard{from{transform:translateY(-30px) scale(0.8);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+        .tp-card-deal{animation:tpcard 0.4s ease forwards}
+        .tpbtn:active{transform:scale(0.91);transition:transform 0.08s}
+        .tp-avatar{border-radius:50%;border:3px solid #FFD700;box-shadow:0 0 12px rgba(255,215,0,0.5);object-fit:cover;}
+        .tp-name-panel{background:linear-gradient(135deg,rgba(10,5,25,0.92),rgba(30,15,50,0.88));border:1px solid rgba(255,215,0,0.55);border-radius:8px;padding:3px 9px;text-align:center;}
+        .tp-vip{background:linear-gradient(90deg,#9D6A00,#FFD700,#9D6A00);color:#000;font-size:7px;font-weight:900;border-radius:10px;padding:1px 6px;display:inline-block;margin-top:1px;}
+        .tp-card{width:38px;height:54px;background:linear-gradient(135deg,#0d0830,#1a0d50);border:2px solid #C9A227;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.7),inset 0 0 8px rgba(255,215,0,0.1);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+        .tp-card::before{content:'';position:absolute;inset:3px;border:1px solid rgba(201,162,39,0.4);border-radius:3px;}
+        .tp-card-r{font-size:18px;font-weight:900;color:#C9A227;text-shadow:0 0 8px rgba(201,162,39,0.8);z-index:1;}
+        .tp-card-sm{width:24px;height:34px;border-width:1.5px;border-radius:4px;}
+        .tp-card-sm .tp-card-r{font-size:11px;}
       </style>
 
-      <!-- TOP HEADER BAR OVERLAY -->
-      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 50px; z-index: 150; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; background: linear-gradient(180deg, rgba(7,1,14,0.95), rgba(0,0,0,0)); pointer-events: auto;">
-        <!-- Left Side: Back Arrow and Name -->
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <!-- Back arrow menu button -->
-          <img src="assets/poker_ui_assets/24_leave_table.png" style="width: 28px; height: 28px; cursor: pointer; object-fit: contain;" onclick="pokerExitToLobby()" title="Leave Table">
-          
-          <!-- Seated Player Info Header -->
-          <div style="display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,215,0,0.25); border-radius: 20px; padding: 2px 10px 2px 4px; font-family: 'Outfit', sans-serif;">
-            <div class="avatar-frame frame-emperor" style="width: 24px; height: 24px;">
-              <div class="avatar-frame-border"></div>
-              <div class="avatar-frame-image">
-                <img id="poker-header-avatar" src="assets/custom_icons/avatar_tasavvur_face.jpg" style="width:100%; height:100%; object-fit:cover;">
+      <!-- ══ TOP HEADER ══ -->
+      <div style="position:absolute;top:0;left:0;width:100%;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:5px 10px;background:linear-gradient(180deg,rgba(5,2,15,0.96),transparent);">
+        <!-- Left: Profile -->
+        <div style="display:flex;align-items:center;gap:7px;flex-shrink:0;">
+          <div style="width:30px;height:30px;background:rgba(255,215,0,0.12);border:1.5px solid #FFD700;border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#FFD700;font-size:14px;font-weight:900;" onclick="pokerExitToLobby()">◀</div>
+          <div style="display:flex;align-items:center;gap:6px;background:rgba(5,2,15,0.85);border:1px solid rgba(255,215,0,0.35);border-radius:22px;padding:3px 10px 3px 4px;">
+            <div style="width:34px;height:34px;background:linear-gradient(135deg,#7B4F00,#FFD700);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#000;border:2px solid #FFD700;">R</div>
+            <div style="line-height:1.2;">
+              <div id="tp-header-name" style="font-size:9px;font-weight:700;color:#fff;">Tasavvur</div>
+              <div style="display:flex;align-items:center;gap:4px;">
+                <span style="background:linear-gradient(90deg,#9D6A00,#FFD700);color:#000;font-size:7px;font-weight:900;border-radius:8px;padding:1px 5px;">👑 VIP 5</span>
+                <span style="font-size:6.5px;color:rgba(255,255,255,0.4);">ID: RC108</span>
               </div>
             </div>
-            <div style="display: flex; flex-direction: column; line-height: 1.1;">
-              <span id="poker-header-name" style="font-size: 8px; font-weight: bold; color: #fff;">Tasavvur</span>
-              <span id="poker-header-vip" style="font-size: 7px; color: #FFD700; font-weight: 900;">👑 VIP 5</span>
+          </div>
+        </div>
+
+        <!-- Center: Chips + Gems -->
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="display:flex;align-items:center;gap:4px;background:rgba(5,2,15,0.85);border:1px solid rgba(255,215,0,0.4);border-radius:14px;padding:3px 10px;height:28px;">
+            <img src="assets/images/icons/luxury_token_red.png" style="width:14px;height:14px;object-fit:contain;">
+            <span id="tp-chips" style="font-size:11px;font-weight:900;color:#FFD700;">82K</span>
+            <span style="color:#00FF66;font-size:13px;font-weight:900;cursor:pointer;margin-left:2px;">+</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;background:rgba(5,2,15,0.85);border:1px solid #00E5FF;border-radius:14px;padding:3px 10px;height:28px;">
+            <span style="font-size:13px;">💎</span>
+            <span id="tp-gems" style="font-size:11px;font-weight:900;color:#00E5FF;">600</span>
+            <span style="color:#00E5FF;font-size:13px;font-weight:900;cursor:pointer;margin-left:2px;">+</span>
+          </div>
+        </div>
+
+        <!-- Right: Menu icons -->
+        <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
+          <div style="position:relative;text-align:center;cursor:pointer;" onclick="clickGridAction('bonus')">
+            <div style="font-size:20px;">🎁</div><div style="font-size:6.5px;color:#FFD700;font-weight:700;">Bonus</div>
+            <div style="position:absolute;top:-2px;right:-2px;background:#FF3333;color:#fff;font-size:7px;font-weight:900;border-radius:50%;width:12px;height:12px;display:flex;align-items:center;justify-content:center;">1</div>
+          </div>
+          <div style="position:relative;text-align:center;cursor:pointer;" onclick="clickGridAction('lucky')">
+            <div style="font-size:20px;">🎡</div><div style="font-size:6.5px;color:#FFD700;font-weight:700;">Lucky</div>
+            <div style="position:absolute;top:-2px;right:-2px;background:#FF3333;color:#fff;font-size:7px;font-weight:900;border-radius:50%;width:12px;height:12px;display:flex;align-items:center;justify-content:center;">1</div>
+          </div>
+          <div style="text-align:center;cursor:pointer;" onclick="clickGridAction('leaderboard')">
+            <div style="font-size:20px;">🏆</div><div style="font-size:6.5px;color:#FFD700;font-weight:700;">Rank</div>
+          </div>
+          <div style="text-align:center;cursor:pointer;">
+            <div style="font-size:20px;">✉️</div><div style="font-size:6.5px;color:#FFD700;font-weight:700;">Inbox</div>
+          </div>
+          <div style="text-align:center;cursor:pointer;">
+            <div style="font-size:20px;">⚙️</div><div style="font-size:6.5px;color:#FFD700;font-weight:700;">Settings</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ DEALER LADY — TOP CENTER ══ -->
+      <div style="position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:50;pointer-events:none;">
+        <img src="assets/tp_dealer_lady.jpg" style="height:130px;object-fit:cover;border-radius:50% 50% 0 0;mask-image:linear-gradient(180deg,#000 60%,transparent 100%);-webkit-mask-image:linear-gradient(180deg,#000 60%,transparent 100%);">
+      </div>
+
+      <!-- ══ POT BOX — CENTER ══ -->
+      <div id="tp-pot-hud" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:100;background:linear-gradient(135deg,rgba(10,5,25,0.95),rgba(40,20,70,0.92));border:2px solid #C9A227;border-radius:12px;padding:5px 20px;text-align:center;box-shadow:0 0 20px rgba(201,162,39,0.4),inset 0 0 12px rgba(0,0,0,0.5);">
+        <div style="font-size:8px;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:1px;font-weight:700;">POT</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-top:2px;">
+          <img src="assets/images/icons/luxury_token_red.png" style="width:12px;height:12px;object-fit:contain;">
+          <span id="tp-pot-value" style="font-size:14px;font-weight:900;color:#FFD700;">0</span>
+        </div>
+      </div>
+
+      <!-- ══ SEAT 3 — TOP LEFT (Aarav) ══ -->
+      <div id="tp-seat-3" class="tp-seat empty" style="position:absolute;left:6%;top:17%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(3)">
+        <div id="tp-join-3" style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:52px;height:52px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.3);font-weight:600;">Join</div>
+        </div>
+        <div id="tp-player-3" style="display:none;flex-direction:column;align-items:center;gap:3px;">
+          <img id="tp-av-3" src="" class="tp-avatar" style="width:52px;height:52px;">
+          <div class="tp-name-panel">
+            <div id="tp-name-3" style="font-size:9px;font-weight:700;color:#fff;white-space:nowrap;"></div>
+            <div id="tp-vip-3" class="tp-vip"></div>
+            <div id="tp-chips-3" style="font-size:8px;color:#FFD700;font-weight:700;margin-top:1px;"></div>
+          </div>
+          <div id="tp-cards-3" style="display:flex;gap:2px;margin-top:2px;"></div>
+        </div>
+        <div id="tp-action-3" style="display:none;background:rgba(5,2,15,0.9);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
+      </div>
+
+      <!-- ══ SEAT 4 — TOP RIGHT (Priya) ══ -->
+      <div id="tp-seat-4" class="tp-seat empty" style="position:absolute;right:6%;top:17%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(4)">
+        <div id="tp-join-4" style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:52px;height:52px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.3);font-weight:600;">Join</div>
+        </div>
+        <div id="tp-player-4" style="display:none;flex-direction:column;align-items:center;gap:3px;">
+          <img id="tp-av-4" src="" class="tp-avatar" style="width:52px;height:52px;">
+          <div class="tp-name-panel">
+            <div id="tp-name-4" style="font-size:9px;font-weight:700;color:#fff;white-space:nowrap;"></div>
+            <div id="tp-vip-4" class="tp-vip"></div>
+            <div id="tp-chips-4" style="font-size:8px;color:#FFD700;font-weight:700;margin-top:1px;"></div>
+          </div>
+          <div id="tp-cards-4" style="display:flex;gap:2px;margin-top:2px;"></div>
+        </div>
+        <div id="tp-action-4" style="display:none;background:rgba(5,2,15,0.9);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
+      </div>
+
+      <!-- ══ SEAT 2 — MID LEFT (Rahul) ══ -->
+      <div id="tp-seat-2" class="tp-seat empty" style="position:absolute;left:2%;top:40%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(2)">
+        <div id="tp-join-2" style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:52px;height:52px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.3);font-weight:600;">Join</div>
+        </div>
+        <div id="tp-player-2" style="display:none;flex-direction:column;align-items:center;gap:3px;">
+          <img id="tp-av-2" src="" class="tp-avatar" style="width:52px;height:52px;">
+          <div class="tp-name-panel">
+            <div id="tp-name-2" style="font-size:9px;font-weight:700;color:#fff;white-space:nowrap;"></div>
+            <div id="tp-vip-2" class="tp-vip"></div>
+            <div id="tp-chips-2" style="font-size:8px;color:#FFD700;font-weight:700;margin-top:1px;"></div>
+          </div>
+          <div id="tp-cards-2" style="display:flex;gap:2px;margin-top:2px;"></div>
+        </div>
+        <div id="tp-action-2" style="display:none;background:rgba(5,2,15,0.9);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
+      </div>
+
+      <!-- ══ SEAT 5 — MID RIGHT (Vikram) ══ -->
+      <div id="tp-seat-5" class="tp-seat empty" style="position:absolute;right:2%;top:40%;z-index:60;cursor:pointer;" onclick="tpJoinSeat(5)">
+        <div id="tp-join-5" style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+          <div style="width:52px;height:52px;border-radius:50%;border:2px dashed rgba(255,215,0,0.4);background:rgba(255,215,0,0.06);display:flex;align-items:center;justify-content:center;font-size:20px;">➕</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.3);font-weight:600;">Join</div>
+        </div>
+        <div id="tp-player-5" style="display:none;flex-direction:column;align-items:center;gap:3px;">
+          <img id="tp-av-5" src="" class="tp-avatar" style="width:52px;height:52px;">
+          <div class="tp-name-panel">
+            <div id="tp-name-5" style="font-size:9px;font-weight:700;color:#fff;white-space:nowrap;"></div>
+            <div id="tp-vip-5" class="tp-vip"></div>
+            <div id="tp-chips-5" style="font-size:8px;color:#FFD700;font-weight:700;margin-top:1px;"></div>
+          </div>
+          <div id="tp-cards-5" style="display:flex;gap:2px;margin-top:2px;"></div>
+        </div>
+        <div id="tp-action-5" style="display:none;background:rgba(5,2,15,0.9);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:8px;font-weight:bold;margin-top:3px;text-align:center;"></div>
+      </div>
+
+      <!-- ══ SEAT 1 — BOTTOM CENTER (You) ══ -->
+      <div id="tp-seat-1" class="tp-seat" style="position:absolute;left:50%;bottom:13%;transform:translateX(-50%);z-index:60;display:flex;flex-direction:column;align-items:center;gap:3px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <img id="tp-av-1" src="assets/custom_icons/avatar_tasavvur_face.jpg" class="tp-avatar" style="width:56px;height:56px;">
+          <div class="tp-name-panel" style="text-align:left;">
+            <div id="tp-name-1" style="font-size:10px;font-weight:700;color:#fff;">Tasavvur (You)</div>
+            <div class="tp-vip">👑 VIP 5</div>
+            <div style="display:flex;align-items:center;gap:3px;margin-top:1px;">
+              <img src="assets/images/icons/luxury_token_red.png" style="width:10px;height:10px;object-fit:contain;">
+              <span id="tp-chips-1" style="font-size:9px;color:#FFD700;font-weight:900;">1,35,000</span>
             </div>
-            <!-- Decorative logo icon next to name -->
-            <img src="assets/poker_ui_assets/02_profile_logo.png" style="width: 12px; height: 12px; object-fit: contain; margin-left: 2px;">
+          </div>
+        </div>
+        <!-- My 3 Teen Patti cards -->
+        <div id="tp-cards-1" style="display:flex;gap:5px;margin-top:4px;">
+          <div class="tp-card tp-card-deal" style="animation-delay:0s;"><span class="tp-card-r">♛</span></div>
+          <div class="tp-card tp-card-deal" style="animation-delay:0.15s;"><span class="tp-card-r">♛</span></div>
+          <div class="tp-card tp-card-deal" style="animation-delay:0.3s;"><span class="tp-card-r">♛</span></div>
+        </div>
+        <!-- Blind/Seen badge -->
+        <div id="tp-blind-badge" style="background:linear-gradient(90deg,#1a0a40,#2d1060);border:1.5px solid #FFD700;border-radius:8px;padding:2px 10px;font-size:8px;font-weight:900;color:#FFD700;margin-top:2px;">BLIND</div>
+        <div id="tp-action-1" style="display:none;background:rgba(5,2,15,0.9);border:1px solid #FFD700;border-radius:6px;padding:2px 8px;color:#fff;font-size:9px;font-weight:bold;margin-top:2px;"></div>
+      </div>
+
+      <!-- ══ BOTTOM FOOTER ══ -->
+      <div id="tp-controls-footer" style="position:absolute;bottom:0;left:0;width:100%;height:70px;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 8px;background:linear-gradient(0deg,rgba(3,1,10,0.98),rgba(3,1,10,0.82));border-top:1.5px solid rgba(201,162,39,0.4);box-shadow:0 -4px 20px rgba(0,0,0,0.9);">
+
+        <!-- Left: Chat + History -->
+        <div style="display:flex;gap:5px;flex-shrink:0;">
+          <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#1a0a40,#3d1f80);border:2px solid rgba(201,162,39,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:1px;" class="tpbtn" onclick="alert('Chat!')">
+            <span style="font-size:16px;">💬</span><span style="font-size:6px;color:#FFD700;font-weight:700;">CHAT</span>
+          </div>
+          <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#1a0a40,#3d1f80);border:2px solid rgba(201,162,39,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:1px;" class="tpbtn" onclick="alert('History!')">
+            <span style="font-size:16px;">🕒</span><span style="font-size:6px;color:#FFD700;font-weight:700;">HISTORY</span>
           </div>
         </div>
 
-        <!-- Middle: Blinds HUD & Balance Info -->
-        <div style="display: flex; align-items: center; gap: 12px; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: bold; color: #fff;">
-          <!-- Chips balance bar with PNG background -->
-          <div style="background: url('assets/poker_ui_assets/03_chips_balance.png') no-repeat; background-size: contain; width: 85px; height: 26px; display: flex; align-items: center; justify-content: flex-end; padding-right: 18px; color: #fff; position: relative;">
-            <span id="poker-header-chips" style="font-size: 9px; font-weight: bold; font-family: 'Outfit', sans-serif;">82K</span>
-            <div style="position: absolute; right: 0; width: 18px; height: 100%; cursor: pointer;" onclick="openShopModal('chips')" title="Add Chips"></div>
+        <!-- Center: Action Buttons -->
+        <div style="display:flex;align-items:center;gap:6px;">
+          <!-- PACK -->
+          <button id="tp-btn-pack" style="height:46px;padding:0 16px;border-radius:24px;border:2px solid #8B0000;background:linear-gradient(180deg,#CC2222,#7A0000);color:#fff;font-size:13px;font-weight:900;cursor:pointer;letter-spacing:0.5px;box-shadow:0 3px 10px rgba(200,0,0,0.5),inset 0 1px 0 rgba(255,100,100,0.3);text-shadow:0 1px 2px #000;" class="tpbtn" onclick="tpPlayerAction('PACK')">PACK</button>
+          <!-- CHAAL -->
+          <button id="tp-btn-chaal" style="height:46px;padding:0 16px;border-radius:24px;border:2px solid #8B6000;background:linear-gradient(180deg,#D4960A,#8B6000);color:#fff;font-size:13px;font-weight:900;cursor:pointer;letter-spacing:0.5px;box-shadow:0 3px 10px rgba(212,150,10,0.5),inset 0 1px 0 rgba(255,220,100,0.3);text-shadow:0 1px 2px #000;" class="tpbtn" onclick="tpPlayerAction('CHAAL')">CHAAL</button>
+          <!-- SEE -->
+          <button id="tp-btn-see" style="height:46px;padding:0 18px;border-radius:24px;border:2px solid #1a6b00;background:linear-gradient(180deg,#228B22,#145214);color:#fff;font-size:14px;font-weight:900;cursor:pointer;letter-spacing:0.5px;box-shadow:0 3px 10px rgba(34,139,34,0.5),inset 0 1px 0 rgba(100,255,100,0.2);text-shadow:0 1px 2px #000;" class="tpbtn" onclick="tpPlayerAction('SEE')">SEE</button>
+          <!-- SIDE SHOW -->
+          <button id="tp-btn-sideshow" style="height:46px;padding:0 12px;border-radius:24px;border:2px solid #5B0080;background:linear-gradient(180deg,#8B00B5,#4A0070);color:#fff;font-size:11px;font-weight:900;cursor:pointer;letter-spacing:0.5px;box-shadow:0 3px 10px rgba(139,0,181,0.5),inset 0 1px 0 rgba(200,100,255,0.2);text-shadow:0 1px 2px #000;line-height:1.2;white-space:nowrap;" class="tpbtn" onclick="tpPlayerAction('SIDE SHOW')">SIDE<br>SHOW</button>
+          <!-- Bet amount control -->
+          <div style="display:flex;align-items:center;background:linear-gradient(135deg,rgba(10,5,25,0.95),rgba(30,15,60,0.9));border:2px solid rgba(201,162,39,0.6);border-radius:22px;height:46px;padding:0 4px;gap:3px;">
+            <button style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,215,0,0.3);color:#FFD700;font-size:16px;font-weight:900;cursor:pointer;line-height:1;" onclick="tpAdjustBet(-1000)">−</button>
+            <span id="tp-bet-amount" style="font-size:11px;font-weight:900;color:#FFD700;min-width:52px;text-align:center;">10,000</span>
+            <button style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,215,0,0.3);color:#FFD700;font-size:16px;font-weight:900;cursor:pointer;line-height:1;" onclick="tpAdjustBet(1000)">+</button>
           </div>
-          <!-- Diamonds balance bar with PNG background -->
-          <div style="background: url('assets/poker_ui_assets/04_diamond_balance.png') no-repeat; background-size: contain; width: 85px; height: 26px; display: flex; align-items: center; justify-content: flex-end; padding-right: 18px; color: #fff; position: relative;">
-            <span id="poker-header-gems" style="font-size: 9px; font-weight: bold; font-family: 'Outfit', sans-serif;">600</span>
-            <div style="position: absolute; right: 0; width: 18px; height: 100%; cursor: pointer;" onclick="openShopModal('gems')" title="Add Gems"></div>
-          </div>
-        </div>
-
-        <!-- Right Side: Top menu shortcuts -->
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <img src="assets/poker_ui_assets/06_invite_button.png" style="width: 26px; height: 26px; cursor: pointer; object-fit: contain;" onclick="alert('Invite friends code: RCG-56879')" title="Invite">
-          <img src="assets/poker_ui_assets/08_rules_button.png" style="width: 26px; height: 26px; cursor: pointer; object-fit: contain;" onclick="clickGridAction('leaderboard')" title="Rank / Rules">
-          <img src="assets/poker_ui_assets/07_settings_button.png" style="width: 26px; height: 26px; cursor: pointer; object-fit: contain;" onclick="alert('Settings panel active!')" title="Settings">
-        </div>
-      </div>
-
-      <!-- CENTER HUD: POT BOX (Using pre-rendered pot panel) -->
-      <div id="poker-pot-hud" style="position: absolute; left: 50%; top: 31%; transform: translate(-50%, -50%); z-index: 100; background: url('assets/poker_ui_assets/14_pot_panel.png') no-repeat center; background-size: contain; width: 100px; height: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-family: 'Outfit', sans-serif;">
-        <span style="font-size: 6.5px; color: rgba(255,255,255,0.5); text-transform: uppercase; font-weight: bold; margin-top: -2px;">Pot</span>
-        <div style="display: flex; align-items: center; gap: 3px; margin-top: 1px;">
-          <img src="assets/images/icons/luxury_token_red.png" style="width: 9px; height: 9px; object-fit: contain;">
-          <span id="poker-pot-value" style="font-size: 10px; font-weight: 900; color: #00FF66; line-height: 1;">0</span>
-        </div>
-      </div>
-
-      <!-- CENTER HUD: BLINDS ROOM ID (Using pre-rendered game info panel) -->
-      <div style="position: absolute; left: 50%; top: 56%; transform: translate(-50%, -50%); z-index: 100; background: url('assets/poker_ui_assets/15_game_info.png') no-repeat center; background-size: contain; width: 130px; height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-family: 'Outfit', sans-serif; pointer-events: none; text-align: center; padding-top: 2px;">
-        <span style="font-size: 9px; font-weight: bold; color: rgba(255,255,255,0.7); letter-spacing: 0.5px; text-transform: uppercase;">Poker</span>
-        <span style="font-size: 7px; color: rgba(255,215,0,0.85); font-weight: bold; margin-top: 1px;">BLINDS: 1,000 / 2,000</span>
-        <span style="font-size: 6px; color: rgba(255,255,255,0.4); margin-top: 1px;">ROOM ID: #RCG-56879</span>
-      </div>
-
-      <!-- CENTER HUD: COMMUNITY CARDS SLOT -->
-      <div id="poker-community-cards" style="position: absolute; left: 50%; top: 43%; transform: translate(-50%, -50%); z-index: 100; display: flex; gap: 6px;">
-        <div class="poker-community-card-slot" style="width: 32px; height: 46px; border: 1px dashed rgba(255,255,255,0.15); border-radius: 4px; background: rgba(0,0,0,0.25);"></div>
-        <div class="poker-community-card-slot" style="width: 32px; height: 46px; border: 1px dashed rgba(255,255,255,0.15); border-radius: 4px; background: rgba(0,0,0,0.25);"></div>
-        <div class="poker-community-card-slot" style="width: 32px; height: 46px; border: 1px dashed rgba(255,255,255,0.15); border-radius: 4px; background: rgba(0,0,0,0.25);"></div>
-        <div class="poker-community-card-slot" style="width: 32px; height: 46px; border: 1px dashed rgba(255,255,255,0.15); border-radius: 4px; background: rgba(0,0,0,0.25);"></div>
-        <div class="poker-community-card-slot" style="width: 32px; height: 46px; border: 1px dashed rgba(255,255,255,0.15); border-radius: 4px; background: rgba(0,0,0,0.25);"></div>
-      </div>
-
-      <!-- DEALER OVERLAY BUTTON BADGE -->
-      <div id="poker-dealer-button-badge" style="position: absolute; z-index: 110; display: none; width: 14px; height: 14px; background: #FFD700; border: 1px solid #fff; border-radius: 50%; color: #000; font-family: 'Outfit', sans-serif; font-size: 8px; font-weight: bold; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,0.5);">D</div>
-
-      <!-- PLAYERS CARD HOLDER WRAPPERS -->
-      <div id="poker-player-cards" style="position: absolute; left: 50%; bottom: 15%; transform: translateX(-50%); z-index: 100; display: flex; gap: 6px;"></div>
-      <div id="poker-cards-2" style="position: absolute; left: 16%; bottom: 36.5%; z-index: 90; display: flex; gap: 2px;"></div>
-      <div id="poker-cards-3" style="position: absolute; left: 28%; top: 22%; z-index: 90; display: flex; gap: 2px;"></div>
-      <div id="poker-cards-4" style="position: absolute; right: 28%; top: 22%; z-index: 90; display: flex; gap: 2px;"></div>
-      <div id="poker-cards-5" style="position: absolute; right: 16%; bottom: 36%; z-index: 90; display: flex; gap: 2px;"></div>
-
-      <!-- PLAYERS ACTION / BET CHIP BUBBLES -->
-      <div id="poker-action-1" class="poker-action-bubble" style="position: absolute; left: 50%; bottom: 12%; transform: translateX(-50%); z-index: 120; display: none; background: rgba(7,1,14,0.9); border: 1px solid #FFD700; border-radius: 6px; padding: 2px 8px; color: #fff; font-family: 'Outfit', sans-serif; font-size: 8px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">CHECK</div>
-      <div id="poker-action-2" class="poker-action-bubble" style="position: absolute; left: 16%; bottom: 44%; z-index: 120; display: none; background: rgba(7,1,14,0.9); border: 1px solid #FFD700; border-radius: 6px; padding: 2px 8px; color: #fff; font-family: 'Outfit', sans-serif; font-size: 8px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">CHECK</div>
-      <div id="poker-action-3" class="poker-action-bubble" style="position: absolute; left: 28%; top: 30%; z-index: 120; display: none; background: rgba(7,1,14,0.9); border: 1px solid #FFD700; border-radius: 6px; padding: 2px 8px; color: #fff; font-family: 'Outfit', sans-serif; font-size: 8px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">CHECK</div>
-      <div id="poker-action-4" class="poker-action-bubble" style="position: absolute; right: 28%; top: 30%; z-index: 120; display: none; background: rgba(7,1,14,0.9); border: 1px solid #FFD700; border-radius: 6px; padding: 2px 8px; color: #fff; font-family: 'Outfit', sans-serif; font-size: 8px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">CHECK</div>
-      <div id="poker-action-5" class="poker-action-bubble" style="position: absolute; right: 16%; bottom: 43%; z-index: 120; display: none; background: rgba(7,1,14,0.9); border: 1px solid #FFD700; border-radius: 6px; padding: 2px 8px; color: #fff; font-family: 'Outfit', sans-serif; font-size: 8px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">CHECK</div>
-
-      <!-- BOTTOM CONTROL BAR FOOTER OVERLAY -->
-      <div id="poker-controls-footer" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 55px; z-index: 150; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; background: rgba(7, 1, 14, 0.95); border-top: 1.5px solid rgba(255, 215, 0, 0.4); box-shadow: 0 -4px 15px rgba(0,0,0,0.8); font-family: 'Outfit', sans-serif;">
-        <!-- Left: Chat & History -->
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <img src="assets/poker_ui_assets/22_chat_button.png" style="width: 32px; height: 32px; cursor: pointer; object-fit: contain;" onclick="alert('Chat lobby is active!')">
-          <img src="assets/poker_ui_assets/23_history_button.png" style="width: 32px; height: 32px; cursor: pointer; object-fit: contain;" onclick="alert('Hand statistics and logs are up to date!')">
-        </div>
-
-        <!-- Center: Pre-rendered Action Buttons -->
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <img id="poker-btn-fold" src="assets/poker_ui_assets/18_fold_button.png" style="width: 65px; height: 34px; cursor: pointer; object-fit: contain; transition: transform 0.1s;" onclick="pokerPlayerAction('FOLD')">
-          <img id="poker-btn-check" src="assets/poker_ui_assets/19_check_button.png" style="width: 65px; height: 34px; cursor: pointer; object-fit: contain; transition: transform 0.1s;" onclick="pokerPlayerAction('CHECK')">
-          
-          <!-- Call Any Relative Div wrapping PNG Background and dynamic text -->
-          <div id="poker-btn-call" style="background: url('assets/poker_ui_assets/20_call_any_button.png') no-repeat center; background-size: contain; width: 75px; height: 34px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-family: 'Outfit', sans-serif; line-height: 1.1; font-weight: 900; font-size: 7.5px;" onclick="pokerPlayerAction('CALL')">
-            <span style="font-size: 6px; opacity: 0.7;">CALL ANY</span>
-            <span id="poker-call-amount" style="font-size: 8px; color: #00FF66;">2,000</span>
-          </div>
-
-          <img id="poker-btn-raise" src="assets/poker_ui_assets/21_raise_button.png" style="width: 65px; height: 34px; cursor: pointer; object-fit: contain; transition: transform 0.1s;" onclick="pokerPlayerAction('RAISE')">
-
-          <!-- Raise Slider Inputs -->
-          <div style="display: flex; align-items: center; background: rgba(0,0,0,0.5); border: 1.5px solid rgba(255,215,0,0.4); border-radius: 8px; height: 34px; padding: 2px 6px; gap: 6px;">
-            <button style="width: 22px; height: 22px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; color: #fff; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center;" onclick="pokerAdjustRaise(-1000)">-</button>
-            <span id="poker-raise-amount-text" style="font-size: 10px; font-weight: bold; color: #FFD700; min-width: 45px; text-align: center;">10,000</span>
-            <button style="width: 22px; height: 22px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; color: #fff; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center;" onclick="pokerAdjustRaise(1000)">+</button>
+          <!-- BLIND/SEEN toggle -->
+          <div id="tp-blind-toggle" style="height:46px;background:linear-gradient(135deg,rgba(10,5,25,0.95),rgba(30,15,60,0.9));border:2px solid rgba(201,162,39,0.5);border-radius:22px;display:flex;align-items:center;padding:0 8px;gap:6px;cursor:pointer;" onclick="tpToggleSeen()" class="tpbtn">
+            <div id="tp-blind-lbl" style="font-size:10px;font-weight:900;color:#C9A227;letter-spacing:0.5px;">BLIND</div>
+            <div style="width:28px;height:16px;background:#3d1f80;border-radius:8px;border:1px solid rgba(201,162,39,0.4);position:relative;">
+              <div id="tp-blind-knob" style="position:absolute;left:2px;top:2px;width:12px;height:12px;border-radius:50%;background:#FFD700;transition:left 0.2s;box-shadow:0 0 4px rgba(255,215,0,0.8);"></div>
+            </div>
+            <div id="tp-seen-lbl" style="font-size:10px;font-weight:900;color:rgba(255,255,255,0.3);">SEEN</div>
           </div>
         </div>
 
-        <!-- Right: Dealer & Sound -->
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <button style="width: 32px; height: 32px; border-radius: 8px; border: 1.5px solid #FFD700; background: rgba(255,215,0,0.05); color: #FFD700; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7px; font-weight: bold;" onclick="pokerStartNextRound()">
-            <span style="font-size: 14px;">🎰</span>
-            <span>DEALER</span>
-          </button>
-          <button id="poker-btn-mute" style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 7px; font-weight: bold;" onclick="pokerToggleMute()">
-            <span id="poker-mute-icon" style="font-size: 14px;">🔊</span>
-            <span>MUTE</span>
-          </button>
+        <!-- Right: Dealer + Mute -->
+        <div style="display:flex;gap:5px;flex-shrink:0;">
+          <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#7B4F00,#FFD700);border:2px solid #FFD700;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:1px;box-shadow:0 0 12px rgba(255,215,0,0.4);" class="tpbtn" onclick="tpStartRound()">
+            <span style="font-size:14px;font-weight:900;color:#000;">D</span><span style="font-size:6px;color:#000;font-weight:700;">DEAL</span>
+          </div>
+          <div id="tp-mute-btn" style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#1a0a40,#3d1f80);border:2px solid rgba(201,162,39,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:1px;" class="tpbtn" onclick="tpToggleMute()">
+            <span id="tp-mute-icon" style="font-size:16px;">🔊</span><span style="font-size:6px;color:#FFD700;font-weight:700;">MUTE</span>
+          </div>
         </div>
       </div>
-
     </div>
 
-    <!-- ─── UNIVERSAL MODAL POPUP ─── -->
+        <!-- ─── UNIVERSAL MODAL POPUP ─── -->
     <div id="detail-modal" class="detail-overlay" onclick="closeModal()">
       <div class="detail-box" onclick="event.stopPropagation()">
         <div class="modal-header">
@@ -1332,6 +1359,7 @@
 
   <script src="player_database.js"></script>
   <script src="poker_gameplay.js"></script>
+  <script src="tp_gameplay.js"></script>
   <script src="engine.js"></script>
   <script>
     // Initialize social databases if not present
@@ -2817,6 +2845,7 @@
 
       // Initialize game loop
       initPokerSimulation();
+      if(typeof initTeenPattiScreen==='function') initTeenPattiScreen();
     }
 
     function pokerSimulateJoin() {
